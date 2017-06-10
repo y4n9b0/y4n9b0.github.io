@@ -28,8 +28,6 @@
         <input type="hidden" id="comment-post-id" name="options[slug]" value="{{ page.slug }}">
         <label for="comment-form-location">Leave blank if you are a human</label>
         <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off">
-        <input type="hidden" name="options[reCaptcha][siteKey]" value="{{ site.reCaptcha.siteKey }}">
-        <input type="hidden" name="options[reCaptcha][secret]" value="{{ site.reCaptcha.secret }}">
       </div>
       <!-- Start comment form alert messaging -->
       <p class="hidden js-notice">
@@ -37,7 +35,6 @@
       </p>
       <!-- End comment form alert messaging -->
       <div class="form-group">
-        <div class="g-recaptcha" data-sitekey="{{ site.reCaptcha.siteKey }}"></div>
         <label class="comment-reply-notifications" for="comment-form-reply">
           <input type="checkbox" id="comment-form-reply" name="options[subscribe]" value="email">
           Notify me of replies by email.
@@ -47,7 +44,6 @@
     </form>
   </div>
   <!-- End new comment form -->
-  <script async src="https://www.google.com/recaptcha/api.js"></script>
 {% else %}
   <p><em>Comments are closed. If you have a question concerning the content of this page, please feel free to <a href="{{ site.url }}/contact/">contact me</a>.</em></p>
 {% endunless %}
