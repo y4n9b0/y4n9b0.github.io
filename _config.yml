@@ -9,9 +9,21 @@ avatarDesc: 人丑多读书
 #url: "http://1step2hell.github.io"
 
 # Comment
-comment:
+# comment:
     # disqus: ᴮᵒᵇ
-    duoshuo: ᴮᵒᵇ 
+    # duoshuo: ᴮᵒᵇ 
+
+
+# Staticman comments (full configuration in staticman.yml)
+staticman:
+  repository             : "1step2hell/1step2hell.github.io"
+  url                    : "https://1step2hell.github.io"
+  branch                 : "master"
+
+# reCAPTCHA keys
+reCaptcha:
+  siteKey: "6LdRBykTAAAAAFB46MnIu6ixuxwu9W1ihFF8G60Q"
+  secret: "PznnZGu3P6eTHRPLORniSq+J61YEf+A9zmColXDM5icqF49gbunH51B8+h+i2IvewpuxtA9TFoK68TuhUp/X3YKmmqhXasegHYabY50fqF9nJh9npWNhvITdkQHeaOqnFXUIwxfiEeUt49Yoa2waRR7a5LdRAP3SVM8hz0KIBT4="
 
 # Social
 social:
