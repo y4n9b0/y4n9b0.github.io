@@ -1,71 +1,38 @@
-# Basic
-title: ᴮᵒᵇ
-# subtitle: ᴮᵒᵇ
-description: Fear springs from ignorance!
-# 头像里面的标题
-avatarTitle: ᴮᵒᵇ
-# 头像里面的描述
-avatarDesc: 人丑多读书
-#url: "http://1step2hell.github.io"
+# Site settings
+name: ᴮᵒᵇ
+email: 40080007@qq.com
+author: ᴮᵒᵇ
+url: https://1step2hell.github.io/
+resume_site: https://1step2hell.github.io/
+github: https://github.com/1step2hell/
+baseurl: ""
 
-# Comment
-# comment:
-    # disqus: ᴮᵒᵇ
-    # duoshuo: ᴮᵒᵇ 
-
-
-# Staticman comments (full configuration in staticman.yml)
-staticman:
-  repository             : "1step2hell/1step2hell.github.io"
-  url                    : "https://1step2hell.github.io"
-  branch                 : "master"
-
-# reCAPTCHA keys
-reCaptcha:
-  siteKey: "6LdRBykTAAAAAFB46MnIu6ixuxwu9W1ihFF8G60Q"
-  secret: "PznnZGu3P6eTHRPLORniSq+J61YEf+A9zmColXDM5icqF49gbunH51B8+h+i2IvewpuxtA9TFoK68TuhUp/X3YKmmqhXasegHYabY50fqF9nJh9npWNhvITdkQHeaOqnFXUIwxfiEeUt49Yoa2waRR7a5LdRAP3SVM8hz0KIBT4="
-
-# Social
-social:
-    # weibo: 0000000 
-    github: 1step2hell
-    # twitter: 
-    mail: 40080007@qq.com
-
-# 百度统计 
-# baidu:
-#     id: 00000000000000000000  
-
-# Google Analytics
-# ga:
-#    id: UA-00000000000
-#    host: auto  
-
-
-
-permalink: /:year/:month/:title/
-# Format
-highlighter: rouge
-
-textColor: #FF0000
-
-# supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
-cover_color: clear
-
-# The blog button should not be removed.
-blog_button:
-    title: 博客主页
-
-# Navigation buttons in the front page.s
-nav:
-    - {title: 所有文章, description: archive, url: '/archive'}   
-    - {title: 标签, description: tags, url: '/tags'}      
-    - {title: 关于我, description: about, url: '/about'}      
-    
-
-# Pagination
+#gems
 gems: [jekyll-paginate]
-paginate: 20
-paginate_path: "page/:num/"
 
+#permalink: /:categories/:year/:month/:day/:title/
+permalink: /:year/:month/:day/:title/
+paginate: 10
 
+exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
+
+github_username: 1step2hell
+highlighter: Pygments
+
+# Build settings
+markdown: kramdown
+
+baidu_analysis: 94be4b0f9fc5d94cc0d0415ea6761ae9
+
+FB:
+  comments :
+    provider : yungentie
+    #duoshuo:
+    #   short_name : xxx
+    #disqus :
+    #   short_name : xxx
+    # facebook :
+    #   appid : 123
+    #   num_posts: 5
+    #   width: 580
+    #   colorscheme: light
