@@ -3569,11 +3569,13 @@ textarea.input-group-sm > .input-group-btn > .btn {
     margin-right: 0;
   }
 }
+.container > .navbar-header,
 .container > .navbar-collapse {
   margin-right: -15px;
   margin-left: -15px;
 }
 @media (min-width: 768px) {
+  .container > .navbar-header,
   .container > .navbar-collapse {
     margin-right: 0;
     margin-left: 0;
@@ -3607,6 +3609,41 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-fixed-bottom {
   bottom: 0;
   margin-bottom: 0;
+}
+.navbar-brand {
+  float: left;
+  padding: 20px 15px;
+  font-size: 18px;
+  line-height: 20px;
+}
+.navbar-brand:hover,
+.navbar-brand:focus {
+  text-decoration: none;
+}
+@media (min-width: 768px) {
+  .navbar > .container .navbar-brand {
+    margin-left: -15px;
+  }
+}
+.navbar-toggle {
+  position: relative;
+  float: right;
+  margin-right: 15px;
+  padding: 9px 10px;
+  margin-top: 13px;
+  margin-bottom: 13px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.navbar-toggle .icon-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 1px;
+}
+.navbar-toggle .icon-bar + .icon-bar {
+  margin-top: 4px;
 }
 @media (min-width: 768px) {
   .navbar-toggle {
@@ -3749,6 +3786,14 @@ textarea.input-group-sm > .input-group-btn > .btn {
   background-color: #f8f8f8;
   border-color: #e7e7e7;
 }
+.navbar-default .navbar-brand {
+  color: #777777;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #5e5e5e;
+  background-color: transparent;
+}
 .navbar-default .navbar-text {
   color: #777777;
 }
@@ -3838,6 +3883,14 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar-inverse {
   background-color: #1d365d;
   border-color: #111f36;
+}
+.navbar-inverse .navbar-brand {
+  color: #b9c8e0;
+}
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  color: #ffffff;
+  background-color: transparent;
 }
 .navbar-inverse .navbar-text {
   color: #b9c8e0;
@@ -6463,8 +6516,17 @@ hr {
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.07);
 }
 .docs-nav .navbar-collapse {
-  padding: 0;
   border-color: #111f36;
+}
+.docs-nav .container .navbar-brand {
+  margin: 12px 0 0;
+  width: 100px;
+  padding: 0;
+}
+.docs-nav .container .navbar-brand img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 .docs-nav .navbar-nav > li > a,
 .docs-nav .navbar-nav > li > span {
