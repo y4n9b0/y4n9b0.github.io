@@ -1,0 +1,15 @@
+<div id="gitment"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: 'ᴮᵒᵇ', // 可选。默认为 location.href
+  owner: '1step2hell',
+  repo: '1step2hell.github.io',
+  oauth: {
+    client_id: '7c88a4e8599e9768e70d',
+    client_secret: 'ab96a3945697b00cfd3d337366225e87e798c29d',
+  },
+})
+gitment.render('gitment')
+</script>
