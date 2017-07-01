@@ -2,7 +2,7 @@
 layout: post
 title:  "Markdown简介"
 date:   2017-07-01 11:30:00 +0800
-categories: Markdown
+category: Markdown
 tag: Markdown
 ---
 
