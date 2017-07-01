@@ -10,3 +10,6 @@ This is the source code of 1step2hell.github.io, a personal blog and portfolio b
 + [Less](http://lesscss.cn/)
 + [LessOrMore](https://github.com/luoyan35714/LessOrMore)
 + [leopardpan](https://github.com/leopardpan/leopardpan.github.io/)
+
+**License**  
+Released under the MIT license. Please see the [LICENSE](https://github.com/1step2hell/1step2hell.github.io/blob/master/LICENSE) file for more information.
