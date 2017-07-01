@@ -9,7 +9,7 @@ baseurl			: ""
 banner			: Fear springs from ignorance.
 
 #gems
-gems			: [jekyll-paginate]
+gems			: [jekyll-paginate,jemoji]
 
 permalink		: /:year/:month/:day/:title/
 paginate		: 10
