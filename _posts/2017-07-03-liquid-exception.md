@@ -32,5 +32,11 @@ If you have any questions you can contact us by replying to this email.
 
 最后搜索到了这个[issue](https://github.com/imathis/octopress/issues/466),[samselikoff](https://github.com/samselikoff)的方法完美解决了问题.  
 在文章里这样写  
-//Todo:  
+![/styles/images/liquid/liquidRawEndraw.png]({{ '/styles/images/liquid/liquidRawEndraw.png' | prepend: site.baseurl  }})    
 liquid转换后就成了{% raw %} {% include file.ext %} {% endraw %}.  
+
+但是这里又有个问题,我没办法把  
+![/styles/images/liquid/liquidRawEndraw.png]({{ '/styles/images/liquid/liquidRawEndraw.png' | prepend: site.baseurl  }})  
+作为raw text显示出来,  
+因为第一个![/styles/images/liquid/liquidEndraw.png]({{ '/styles/images/liquid/liquidEndraw.png' | prepend: site.baseurl  }})
+总是和![/styles/images/liquid/liquidRaw.png]({{ '/styles/images/liquid/liquidRaw.png' | prepend: site.baseurl  }})配对去了,没办法把![/styles/images/liquid/liquidEndraw.png]({{ '/styles/images/liquid/liquidEndraw.png' | prepend: site.baseurl  }})本身作为raw text给予显示.
