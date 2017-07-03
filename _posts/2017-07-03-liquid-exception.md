@@ -32,11 +32,39 @@ If you have any questions you can contact us by replying to this email.
 
 最后搜索到了这个[issue](https://github.com/imathis/octopress/issues/466),[samselikoff](https://github.com/samselikoff)的方法完美解决了问题.  
 在文章里这样写  
-![/styles/images/liquid/liquidRawEndraw.png]({{ '/styles/images/liquid/liquidRawEndraw.png' | prepend: site.baseurl  }})    
+&#123;&#37; raw &#37;&#125;
+  &#123;&#37; include file.ext &#37;&#125;
+&#123;&#37; endraw &#37;&#125;   
 liquid转换后就成了{% raw %} {% include file.ext %} {% endraw %}.  
 
 但是这里又有个问题,我没办法把  
-![/styles/images/liquid/liquidRawEndraw.png]({{ '/styles/images/liquid/liquidRawEndraw.png' | prepend: site.baseurl  }})  
+&#123;&#37; raw &#37;&#125;
+  &#123;&#123; include file.ext &#125;&#125;
+&#123;&#37; endraw &#37;&#125;  
 作为raw text显示出来,  
-因为第一个![/styles/images/liquid/liquidEndraw.png]({{ '/styles/images/liquid/liquidEndraw.png' | prepend: site.baseurl  }})
-总是和![/styles/images/liquid/liquidRaw.png]({{ '/styles/images/liquid/liquidRaw.png' | prepend: site.baseurl  }})配对去了,没办法把![/styles/images/liquid/liquidEndraw.png]({{ '/styles/images/liquid/liquidEndraw.png' | prepend: site.baseurl  }})本身作为raw text给予显示.
+因为第一个&#123;&#37; endraw &#37;&#125;
+总是和&#123;&#37; raw &#37;&#125;)配对去了,没办法把&#123;&#37; endraw &#37;&#125;本身作为raw text给予显示.  
+
+在咨询了Liquid写文档的小哥[Adam Hollett](https://github.com/admhlt)之后得到了答案把{}和%用HTML实体替换掉就可以了.  
+{ 对应为 &amp;#123;  
+% 对应为 &amp;#37;  
+} 对应为 &amp;#125;  
+
+写到这里又有个问题:laughing:,&amp;在Markdown里属于特殊字符,如果想显示也需要用HTML实体&amp;amp;替换掉<https://daringfireball.net/projects/markdown/syntax#autoescape>  
+
+所以你看到的这句话  
+&#8195;&#8195;{ 对应为 &amp;#123;  
+其实在我写的Markdown文件里是这样子的  
+&#8195;&#8195;{ 对应为 &amp;amp#123;
+
+而你看到的这句话  
+&#8195;&#8195;{ 对应为 &amp;amp;#123;  
+对应的Markdown又是这样子的  
+&#8195;&#8195;{ 对应为 &amp;amp;amp;#123;  
+
+而你看到的这句话  
+&#8195;&#8195;{ 对应为 &amp;amp;amp;#123;  
+对应的Markdown...  
+
+因为&amp;对应的HTML实体&amp;amp;开头又包含自身,所以咱们可以无限玩下去  
+疯了有木有:joy:
