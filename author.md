@@ -1,9 +1,10 @@
 ---
 layout: post
-title:  "作者"
+title:  "Author"
 date:   2017-07-01 21:00:00 +0800
-category: blog
-tag: auther
+categories: blog
+tags: Author
+published: true
 ---
 
 * content
