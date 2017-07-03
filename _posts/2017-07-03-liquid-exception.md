@@ -2,7 +2,7 @@
 layout: post
 title:  "Liquid Exception"
 date:   2017-07-03 13:00:00 +0800
-categories: blog
+categories: Issue
 tags: Liquid
 published: true
 ---
