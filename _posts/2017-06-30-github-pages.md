@@ -16,7 +16,7 @@ published: true
 GitHub Pages is a static site hosting service and doesn't support server-side code such as, PHP, Ruby, or Python.
 GitHub Pages is designed to host your personal, organization, or project pages directly from a GitHub repository.
 ```
-Github Pages 是一个静态网站寄存服务,不支持等服务端代码,比如PHP, Ruby, 或者 Python.  
+Github Pages 是一个静态网站寄存服务,不支持服务端代码,比如PHP, Ruby, 或者 Python.  
 Github Pages 的页面基于Github仓库.
 
 # Sample
