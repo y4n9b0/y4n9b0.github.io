@@ -67,4 +67,9 @@ liquid转换后就成了{% raw %} {% include file.ext %} {% endraw %}.
 对应的Markdown...  
 
 因为&amp;对应的HTML实体&amp;amp;开头又包含自身,所以咱们可以无限玩下去  
-疯了有木有:joy:
+疯了有木有:joy:  
+
+最后,附上HTML Entity链接
+<br><http://www.ascii.cl/htmlcodes.htm>
+<br><https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references>
+<br><https://www.w3.org/TR/html4/sgml/entities.html>
