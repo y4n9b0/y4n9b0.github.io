@@ -37,7 +37,7 @@ If you have any questions you can contact us by replying to this email.
 &#123;&#37; endraw &#37;&#125;   
 liquid转换后就成了{% raw %} {% include file.ext %} {% endraw %}.  
 
-但是这里又有个问题,我没办法把  
+但是这里又有个问题,在写这篇文章的时候我没办法把  
 &#123;&#37; raw &#37;&#125;
   &#123;&#123; include file.ext &#125;&#125;
 &#123;&#37; endraw &#37;&#125;  
@@ -45,7 +45,7 @@ liquid转换后就成了{% raw %} {% include file.ext %} {% endraw %}.
 因为第一个&#123;&#37; endraw &#37;&#125;
 总是和&#123;&#37; raw &#37;&#125;)配对去了,没办法把&#123;&#37; endraw &#37;&#125;本身作为raw text给予显示.  
 
-在咨询了Liquid写文档的小哥[Adam Hollett](https://github.com/admhlt)之后得到了答案把{}和%用HTML实体替换掉就可以了.  
+在请教了Liquid写文档的小哥[Adam Hollett](https://github.com/admhlt)之后得到了答案把{}和%用HTML实体替换掉就可以了.  
 { 对应为 &amp;#123;  
 % 对应为 &amp;#37;  
 } 对应为 &amp;#125;  
