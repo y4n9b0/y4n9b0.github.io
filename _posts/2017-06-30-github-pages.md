@@ -11,7 +11,7 @@ published: true
 {:toc}
 
 
-# Definition
+# Welcome
 ```
 GitHub Pages is a static site hosting service and doesn't support server-side code such as, PHP, Ruby, or Python.
 GitHub Pages is designed to host your personal, organization, or project pages directly from a GitHub repository.

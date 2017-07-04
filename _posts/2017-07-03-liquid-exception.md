@@ -11,7 +11,6 @@ published: true
 {:toc}
 
 
-# Issue
 在写Jekyll Directory structure的_includes时,使用了{% raw %} {% include file.ext %} {% endraw %}这个字符串作为示例,介绍如何包含_includes下的文件.  
 提交后收到了Github的编译报错邮件  
 ```
