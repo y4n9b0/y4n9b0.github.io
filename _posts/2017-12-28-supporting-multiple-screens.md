@@ -29,16 +29,16 @@ published: true
 
 # Terminology
 进行多屏适配之前，先介绍Android尺寸常用的几个术语：<br>
- * px(pixel)：屏幕分辨率的像素，比如 Google Pixel C 平板分辨率2560*1800。
- * ppi(pixel per inch)：每英寸像素点数，分辨率除以屏幕物理尺寸（单位为英寸）。数值越大，单位面积内的显示效果越清晰。
+ * __px__ (pixel)：屏幕分辨率的像素，比如 Google Pixel C 平板分辨率2560*1800。
+ * __ppi__ (pixel per inch)：每英寸像素点数，分辨率除以屏幕物理尺寸（单位为英寸）。数值越大，单位面积内的显示效果越清晰。
  <br><br>
- * density：基于160的密度因子。160这个值是Google定义的dpi标准量。
- * dpi(dot per inch)：每英寸点数。<br>
+ * __density__：基于160的密度因子。160这个值是Google定义的dpi标准量。
+ * __dpi__ (dot per inch)：每英寸点数。<br>
    这儿的dot是完全__虚拟__的，是Google为了搭建一套通用的显示尺寸而构造的一个量，值设定在各个手机的系统属性里。
- * dp/dip(Density-independent pixel)：设备独立像素。<br>
+ * __dp__/__dip__ (Density-independent pixel)：设备独立像素。<br>
    px = dp \* density = dp \* (dpi / 160)
 
- ```
+ ```java
  /**
   * Standard quantized DPI for medium-density screens.
   */
@@ -64,7 +64,7 @@ published: true
  ```
  某种程度上我们可以说1 density = 160 dpi，就像数学里的1弧度等于180/π ≈ 57.3°一样。唯一不同的是数学里的57.3这个值是不能更改的，它是由弧度的定义推导出来的；而density里的这个160是可以更改的，如果当初Google把这个值定义为159或者161，或者250也是可行的，只是计算没那么方便（另一方面，160这个值估计也是Google统计和预测过Android终端分辨率的分布情况来确定的）。
 
- * sp(Scale-independent pixels)：比例的设备独立像素，正比于用户的字体设置。理论上只用于设置字体尺寸单位，实际上用作其他地方也没人拦。因为决定最终显示大小的还是像素值px，无论是dp还是sp 都只是转化为px的一种媒介单位；够任性，只用px都可以:smile:。
+ * __sp__ (Scale-independent pixels)：比例的设备独立像素，正比于用户的字体设置。理论上只用于设置字体尺寸单位，实际上用作其他地方也没人拦。因为决定最终显示大小的还是像素值px，无论是dp还是sp 都只是转化为px的一种媒介单位；够任性，只用px都可以:smile:。
 
 
 未完 累了 回头 继续···
