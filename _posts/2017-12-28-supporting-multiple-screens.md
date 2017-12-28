@@ -27,7 +27,7 @@ published: true
    * Android系统版本适配，主要是新API的增加和过期API的替换，比如Android 6.0新增了动态权限申请，7.0多窗口支持，8.0画中画。
    * 多屏适配
 
-# Terminology
+# Terms and concepts
 进行多屏适配之前，先介绍Android尺寸常用的几个术语：<br>
  * **px** (pixel)：屏幕分辨率的像素，比如 Google Pixel C 平板分辨率2560*1800。
  * **ppi** (pixel per inch)：每英寸像素点数，分辨率除以屏幕物理尺寸（单位为英寸）。数值越大，单位面积内的显示效果越清晰。
