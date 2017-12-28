@@ -40,13 +40,13 @@ published: true
 
  ```
  /**
-  \* Standard quantized DPI for medium-density screens.
-  \*/
+  * Standard quantized DPI for medium-density screens.
+  */
   public static final int DENSITY_MEDIUM = 160;
 
  /**
-  \* The reference density used throughout the system.
-  \*/
+  * The reference density used throughout the system.
+  */
   public static final int DENSITY_DEFAULT = DENSITY_MEDIUM;
 
   public static int DENSITY_DEVICE = getDeviceDensity();
