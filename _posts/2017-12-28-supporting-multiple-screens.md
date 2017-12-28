@@ -37,15 +37,16 @@ published: true
    这儿的dot是完全__虚拟__的，是Google为了搭建一套通用的显示尺寸而构造的一个量，值设定在各个手机的系统属性里。
  * dp/dip(Density-independent pixel)：设备独立像素。<br>
    px = dp \* density = dp \* (dpi / 160)
+
  ```
  /**
-  * Standard quantized DPI for medium-density screens.
-  */
+  \* Standard quantized DPI for medium-density screens.
+  \*/
   public static final int DENSITY_MEDIUM = 160;
 
  /**
-  * The reference density used throughout the system.
-  */
+  \* The reference density used throughout the system.
+  \*/
   public static final int DENSITY_DEFAULT = DENSITY_MEDIUM;
 
   public static int DENSITY_DEVICE = getDeviceDensity();
