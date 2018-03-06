@@ -55,14 +55,18 @@ Activity生命周期
 
 Service（startService & bindService）
 https://www.jianshu.com/p/d870f99b675c
+http://gank.io/post/560e15be2dca930e00da1083
+http://reactivex.io/
 
 ContentProvider
 
 BroadcastReceivier（静态注册 & 动态注册）
 
 RxJava流式编程
+https://www.jianshu.com/p/850af4f09b61
+
 Glide图片加载
-Gson Okhttp Retrofit Firebase ErrorProne Jsoup Dagger LeakCanary
+Gson Okhttp Retrofit Firebase ErrorProne Jsoup Dagger LeakCanary DataBinding TestUnit
 
 OOM ANR 内存泄漏
 
