@@ -95,3 +95,5 @@ http://blog.csdn.net/bieleyang/article/details/77791964
 volatile
 
 synchronized
+
+强引用 弱引用 软引用 虚引用
