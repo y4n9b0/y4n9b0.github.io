@@ -141,7 +141,7 @@ public @interface TestAnnotation {
   public void testMethod(){}
   ```
 
-  **NOTE**: 在注解中定义属性时它的类型必须是 8 种基本数据类型外加 类、接口、注解及它们的数组。
+  **NOTE**: 在注解中定义属性时它的类型必须是 8 种基本数据类型外加 String、Enums、类、接口、注解及它们的数组。
 
 
 **Java预置的注解**
