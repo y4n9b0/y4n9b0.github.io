@@ -12,7 +12,7 @@ published: false
 
 
 # Prologue
-学习Retrofit这些框架，源码涉及到大量注解。
+
 
 
 # Terms and concepts

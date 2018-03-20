@@ -76,6 +76,7 @@ https://www.jianshu.com/p/ac00d59993aa
 
 Android Architecture Components
 https://developer.android.com/topic/libraries/architecture/index.html
+
 # Java
 范型
 
@@ -97,3 +98,7 @@ volatile
 synchronized
 
 强引用 弱引用 软引用 虚引用
+https://www.cnblogs.com/yw-ah/p/5830458.html
+
+堆 & 栈
+https://www.cnblogs.com/li1189/p/6745119.html
