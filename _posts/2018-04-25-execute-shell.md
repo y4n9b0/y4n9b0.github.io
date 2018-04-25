@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  shell
+title:  excute shell
 date:   2018-04-25 15:30:00 +0800
 categories: linux
 tags: shell
