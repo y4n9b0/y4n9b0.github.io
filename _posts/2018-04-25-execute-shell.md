@@ -35,6 +35,12 @@ bash a.sh
 都是打开一个 subshell 去读取、执行 a.sh，而 a.sh 不需要有"执行权限"。  
 通常在 subshell 里运行的脚本里设置变量，不会影响到父 shell 的。
 
+**Note** sh/bash 加上 -x 参数可以调试脚本:
+```
+sh -x a.sh
+bash -x a.sh
+```
+
 # ./
 ```
 ./a.sh
