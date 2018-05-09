@@ -360,13 +360,27 @@ TODO
     ```
     $ cat servercert.pem serverkey.pem ./demoCA/cacert.pem > server.pem
     $ cat clientcert.pem clientkey.pem ./demoCA/cacert.pem > client.pem
-    $ openssl verify -CAfile ./server.pem ./client.pem
-    ./client.pem: OK
-    $ openssl verify -CAfile ./client.pem ./server.pem
-    ./server.pem: OK
+    $ openssl verify -CAfile server.pem client.pem
+    client.pem: OK
+    $ openssl verify -CAfile client.pem server.pem
+    server.pem: OK
     ```
     将新证书 server.pem 和 client.pem 分别配置在 server端和client端即可。
 
+    在测试安装证书的时候发现 Android手机目前不支持pem格式的CA证书，需要将其转化为crt格式（https://www.jethrocarr.com/2012/01/04/custom-ca-certificates-and-android/）：
+    ```
+    $ openssl x509 -inform PEM -outform DER -in server.pem -out server.crt
+    $ openssl x509 -inform PEM -outform DER -in client.pem -out client.crt
+    ```
+    但是转化为crt格式后的证书却无法相互认证：
+    ```
+    openssl verify -CAfile server.crt client.crt
+    Error loading file server.crt
+    ```
+    这里还有待继续研究：
+    * Android支持哪些格式的CA证书？ iOS支持哪些格式的CA证书？
+    * Radius服务器需要配置什么格式的证书，才能保证和UE（User Endpoint）的证书相互认证？  
+    TODO
 
 参考：  
     [http://rhythm-zju.blog.163.com/blog/static/310042008015115718637/](http://rhythm-zju.blog.163.com/blog/static/310042008015115718637/)  
