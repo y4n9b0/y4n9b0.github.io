@@ -11,10 +11,11 @@ published: true
 {:toc}
 
 # PKI
-https://blog.csdn.net/evsqiezi/article/details/43411937
+https://blog.csdn.net/evsqiezi/article/details/43411937  
+TODO
 
 # CA
-CA:Certificate Authority  
+CA: Certificate Authority  
 证书基本的文件类型和协议有: PEM、DER、PFX、JKS、KDB、CER、KEY、CSR、CRT、CRL 、OCSP、SCEP等。
 
 * PEM – Openssl使用 PEM(Privacy Enhanced Mail)格式来存放各种信息,它是 openssl 默认採用的信息存放方式。
@@ -102,14 +103,16 @@ CA:Certificate Authority
 * PKCS12 – pkcs12 (个人数字证书标准)用于存放用户证书、crl、用户私钥以及证书链。pkcs12 中的私钥是加密存放的。
 
 # 数字证书原理
-https://www.zhihu.com/question/24294477
+https://www.zhihu.com/question/24294477  
+TODO
 
 # OpenSSL
   TODO
 
 # Create CA
-知名免费CA证书
-https://www.zhihu.com/question/22520304/answer/137070944
+知名免费CA证书   
+https://www.zhihu.com/question/22520304/answer/137070944  
+TODO
 
 1.  建立CA目录结构  
     按照 OpenSSL 的默认配置建立 CA ，需要在文件系统中建立相应的目录结构。相关的配置内容一般位于 /usr/ssl/openssl.cnf 内，安装OpenSSL后，系统会在/etc/ssl/目录下生成openssl.cnf文件（不同的操作系统可能位于不同的目录，本文所用系统为 ubuntu 16.04）。
@@ -203,7 +206,7 @@ https://www.zhihu.com/question/22520304/answer/137070944
 
     Please enter the following 'extra' attributes to be sent with your certificate request
     A challenge password []:<enter another pass-phrase>
-    An optional company name []:.
+    An optional company name []:
     ```
     **Note:**
     * extra challenge password:  
@@ -326,7 +329,7 @@ https://www.zhihu.com/question/22520304/answer/137070944
       ```
       $ openssl ca -in userreq.pem -out usercert.pem
       ```
-      在`/usr/ssl/openssl.cnf`中定义了 该命令默认使用上面路径生成的根证书 `./demoCA/cacert.pem`, 如果根证书放在其他位置，可以使用参数 `-cert file`使用指定位置的根证书。  
+      在`/usr/ssl/openssl.cnf`中定义了 该命令使用默认路径生成的根证书 `./demoCA/cacert.pem`, 如果根证书放在其他位置，可以使用参数 `-cert file`使用指定位置的根证书。  
 
 7.  至此，我们便完成了 CA 的建立及用户证书签发的全部工作。  
     下面，我们验证一下刚才用户证书的真实性：  
@@ -337,14 +340,14 @@ https://www.zhihu.com/question/22520304/answer/137070944
     结果显示 OK 。
 
 8.  创建中间CA并通过中间CA颁发用户证书  
-    创建中间CA的优点在我们不使用CA根私钥而是使用中间CA的私钥来签发客户证书，CA根私钥只用来签发中间CA的证书撤销列表，这样能够更为妥善地保护CA根私钥。
-    TODO...
+    创建中间CA的优点在我们不使用CA根私钥而是使用中间CA的私钥来签发客户证书，CA根私钥只用来签发中间CA的证书撤销列表，这样能够更为妥善地保护CA根私钥。  
+    TODO
 
 9.  用于[Raidus](https://tools.ietf.org/html/rfc2865) server端和client端相互认证的证书  
 
     仿照步骤6我们又用根证书生成两个用户证书： servercert.pem 和 clientcert.pem (当然也包含各自对应的私钥 serverkey.pem 和 clientkey.pem )。  
 
-    由于 servercert.pem 和 clientcert.pem 都是由根证书签发的，处于同级关系，是没有办法相互认证的：
+    由于 servercert.pem 和 clientcert.pem 都是由根证书签发的，处于同级关系，所以是没有办法相互认证的：
     ```
     $ openssl verify -CAfile ./servercert.pem ./clientcert.pem
     ./clientcert.pem: C = CN, ST = Sichuan, O = Phicomm, OU = SmartHome, CN = client, emailAddress = step2hell@qq.com
