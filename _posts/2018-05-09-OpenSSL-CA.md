@@ -379,7 +379,8 @@ TODO
     ```
     这里还有待继续研究：
     * Android支持哪些格式的CA证书？ iOS支持哪些格式的CA证书？
-    * Radius服务器需要配置什么格式的证书，才能保证和UE（User Endpoint）的证书相互认证？  
+    * Radius服务器需要配置什么格式的CA证书，才能保证和UE（User Endpoint）的证书相互认证？  
+    * 如何生成这类格式的CA证书?
     TODO
 
 参考：  
