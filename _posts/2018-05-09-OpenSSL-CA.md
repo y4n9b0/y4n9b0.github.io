@@ -107,6 +107,8 @@ https://www.zhihu.com/question/24294477
 TODO
 
 # OpenSSL
+  https://blog.csdn.net/scuyxi/article/details/54884976  
+  man openssl  
   TODO
 
 # Create CA
@@ -115,7 +117,7 @@ https://www.zhihu.com/question/22520304/answer/137070944
 TODO
 
 1.  建立CA目录结构  
-    按照 OpenSSL 的默认配置建立 CA ，需要在文件系统中建立相应的目录结构。相关的配置内容一般位于 /usr/ssl/openssl.cnf 内，安装OpenSSL后，系统会在/etc/ssl/目录下生成openssl.cnf文件（不同的操作系统可能位于不同的目录，本文所用系统为 ubuntu 16.04）。
+    按照 OpenSSL 的默认配置建立 CA ，需要在文件系统中建立相应的目录结构。相关的配置内容一般位于 /usr/lib/ssl/openssl.cnf 内，安装OpenSSL后，系统会在/etc/ssl/目录下生成openssl.cnf文件（不同的操作系统可能位于不同的目录，本文所用系统为 ubuntu 16.04）。
     ```
     $ cd /etc/pki
     $ mkdir -p ./demoCA/{private,newcerts}
@@ -182,7 +184,7 @@ TODO
 
     * -extensions v3_req  
       生成v3证书请求，默认是v1,不带扩展属性。  
-      具体的 v3_req 设置可以在使用的默认配置文件 `/usr/ssl/openssl.cnf` 里修改（不建议这样操作，建议拷贝一份配置文件 `**.cnf`，命令中添加参数`-config **.cnf` 使用指定配置文件，需要时修改该文件即可）。
+      具体的 v3_req 设置可以在使用的默认配置文件 `/usr/lib/ssl/openssl.cnf` 里修改（不建议这样操作，建议拷贝一份配置文件 `**.cnf`，命令中添加参数`-config **.cnf` 使用指定配置文件，需要时修改该文件即可）。
 
     * -out ./demoCA/careq.pem  
       令生成的证书请求保存到文件./demoCA/careq.pem
@@ -329,7 +331,7 @@ TODO
       ```
       $ openssl ca -in userreq.pem -out usercert.pem
       ```
-      在`/usr/ssl/openssl.cnf`中定义了 该命令使用默认路径生成的根证书 `./demoCA/cacert.pem`, 如果根证书放在其他位置，可以使用参数 `-cert file`使用指定位置的根证书。  
+      在`/usr/lib/ssl/openssl.cnf`中定义了 该命令使用默认路径生成的根证书 `./demoCA/cacert.pem` 以及根证书私钥`./demoCA/private/cakey.pem`, 如果根证书放在其他位置，可以使用参数 `-cert file`使用指定位置的根证书，同理用参数`-keyfile file`使用指定位置的根证书私钥。  
 
 7.  至此，我们便完成了 CA 的建立及用户证书签发的全部工作。  
     下面，我们验证一下刚才用户证书的真实性：  
@@ -367,7 +369,7 @@ TODO
     ```
     将新证书 server.pem 和 client.pem 分别配置在 server端和client端即可。
 
-    在测试安装证书的时候发现 Android手机目前不支持pem格式的CA证书，需要将其转化为crt格式（https://www.jethrocarr.com/2012/01/04/custom-ca-certificates-and-android/）：
+    在测试安装证书的时候发现 Android手机目前不支持pem格式的CA证书，需要将其转化为crt格式[https://www.jethrocarr.com/2012/01/04/custom-ca-certificates-and-android/](https://www.jethrocarr.com/2012/01/04/custom-ca-certificates-and-android/)：
     ```
     $ openssl x509 -inform PEM -outform DER -in server.pem -out server.crt
     $ openssl x509 -inform PEM -outform DER -in client.pem -out client.crt
@@ -377,11 +379,84 @@ TODO
     openssl verify -CAfile server.crt client.crt
     Error loading file server.crt
     ```
-    这里还有待继续研究：
-    * Android支持哪些格式的CA证书？ iOS支持哪些格式的CA证书？
-    * Radius服务器需要配置什么格式的CA证书，才能保证和UE（User Endpoint）的证书相互认证？  
-    * 如何生成这类格式的CA证书?
-    TODO
+    目前还没找到更好的办法，只有重新生成一套crt格式的证书。
+
+
+#   生成crt格式证书
+
+1.  生成根证书私钥  
+    ```
+    $ sudo openssl genrsa -aes256 -out ca.key 4096
+    ```
+2.  生成根证书请求文件
+    ```
+    $ sudo openssl req -new -days 365 -key ca.key -sha256 -extensions v3_req -out ca.csr
+    ```
+3.  自签名根证书请求文件生成根证书
+    ```
+    $ sudo openssl x509 -req -days 365 -in ca.csr -signkey ca.key -out ca.crt
+    ```
+
+    **Note**  
+    以上三步可以用如下一行命令代替：
+    ```
+    $ sudo openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout ca.key -out ca.crt
+    ```
+    `-nodes`参数指定私钥不加密，如果需要私钥加密可以去掉该参数。  
+    `req`指令具体参数可以参考[https://blog.csdn.net/as3luyuan123/article/details/16811787](https://blog.csdn.net/as3luyuan123/article/details/16811787)
+
+4.  签发证书
+    * 生成用户证书私钥
+      ```
+      $ sudo openssl genrsa -aes256 -out user.key 4096
+      ```
+    * 生成用户证书请求
+      ```
+      $ sudo openssl req -new -days 365 -key client.key -out user.csr
+      ```
+    * 签发用户证书
+      ```
+      $ sudo openssl x509 -req -days 365 -in user.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out user.crt
+      ```
+      也可以用如下指令签发（区别是该指令需要提前建好`/usr/lib/ssl/openssl.cnf`指定的一些生存文件夹及文件）
+      ```
+      $ sudo openssl ca -in user.csr -out user.crt -cert ca.crt -keyfile ca.key
+      ```
+5.  证书验证
+    ```
+    $ sudo openssl verify -CAfile ca.crt user.crt
+    user.crt: OK
+    ```
+
+    重复上述操作签发server.crt 和 client.crt，下面我们进行服务器端和客户端证书认证测试：
+    * 单向认证测试
+      在终端1 启动server：
+      ```
+      $ sudo openssl s_server -accept 10001 -key server.key -cert server.crt
+
+      Using default temp DH parameters
+      Using default temp ECDH parameters
+      ACCEPT
+      ```
+      在终端2 启动客户端：
+      ```
+      $ sudo openssl s_client -connect localhost:10001
+
+      CONNECTED(00000003)
+      ```
+      连接成功后在任意一个窗口输入字符串会传输到另外一个窗口回显。
+
+    * 双向认证测试
+      在终端1 启动server（带有Verify参数，强制要求client证书）：
+      ```
+      $ sudo openssl s_server -accept 10001 -key server.key -cert server.crt  -Verify 5
+      ```
+      在终端2 启动客户端：
+      ```
+      $ sudo openssl s_client -connect localhost:10001 -cert client.crt -key client.key
+      ```
+      双向证书正确则连接成功，否则连接失败。连接成功后同样在任意一个窗口输入字符串会传输到另外一个窗口回显。
+
 
 参考：  
     [http://rhythm-zju.blog.163.com/blog/static/310042008015115718637/](http://rhythm-zju.blog.163.com/blog/static/310042008015115718637/)  
