@@ -266,7 +266,7 @@ TODO
     Write out database with 1 new entries
     Data Base Updated
     ```
-    至此，我们便已成功建立了一个私有根 CA 。在这个过程中，我们获得了一份 CA 私钥文件 ./demoCA/private/cakey.pem 以及一份由此私钥签名的 CA 根证书文件 ./demoCA/newcerts/cacert.pem ，得到的 CA 目录结构如下：
+    至此，我们便已成功建立了一个私有根 CA 。在这个过程中，我们获得了一份 CA 私钥文件 ./demoCA/private/cakey.pem 以及一份由此私钥签名的 CA 根证书文件 ./demoCA/cacert.pem ，得到的 CA 目录结构如下：
     ```
     demoCA/
     ├── cacert.pem
