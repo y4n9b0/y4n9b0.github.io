@@ -418,7 +418,7 @@ TODO
       ```
       $ sudo openssl x509 -req -days 365 -in user.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out user.crt
       ```
-      也可以用如下指令签发（区别是该指令需要提前建好`/usr/lib/ssl/openssl.cnf`指定的一些生存文件夹及文件）
+      该指令也可以用如下行代替（区别是下面的指令需要提前建好`/usr/lib/ssl/openssl.cnf`指定的一些生存文件夹及文件）：
       ```
       $ sudo openssl ca -in user.csr -out user.crt -cert ca.crt -keyfile ca.key
       ```
@@ -428,7 +428,7 @@ TODO
     user.crt: OK
     ```
 
-    重复上述操作签发server.crt 和 client.crt，下面我们进行服务器端和客户端证书认证测试：
+    重复上述操作签发证书server.crt 和 client.crt，下面我们进行服务器端和客户端证书认证测试：
     * 单向认证测试
       在终端1 启动server：
       ```
