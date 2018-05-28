@@ -47,6 +47,9 @@ adb pull /sdcard/capture.pcap
 ```
 
 * 用wireshark打开capture.pcap分析log
+![/styles/images/tcpdump/capturelog.png]({{'/styles/images/tcpdump/capturelog.png'|prepend:site.baseurl}})
+
+可以看到万能钥匙使用的url是`51y5.net`，我要WiFi的谐音。
 
 **Note**
 ```
@@ -69,7 +72,7 @@ error: only position independent executables (PIE) are supported.
 
 PIE安全机制从Android4.1开始引入，Android L之前的系统版本并不会去检验可执行文件是否基于PIE编译出的，因此低于Android L 以前不会报错。但是Android L已经开启验证，如果调用的可执行文件不是基于PIE方式编译的，则无法运行。
 
-解决办法：
+有两个解决办法：
 * 下载支持的新版本tcpdump
 * 自行编译tcpdump源码，编译的时候加上如下的flag就行：
   ```
