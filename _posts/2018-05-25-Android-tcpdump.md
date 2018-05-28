@@ -46,20 +46,21 @@ chmod 6755 tcpdump
 adb pull /sdcard/capture.pcap
 ```
 
-* 用wireshark打开capture.pcap分析log
-![/styles/images/tcpdump/capturelog.png]({{'/styles/images/tcpdump/capturelog.png'|prepend:site.baseurl}})
+* 用wireshark打开capture.pcap分析log  
 
-可以看到万能钥匙使用的url是`51y5.net`，我要WiFi的谐音。
+  ![/styles/images/tcpdump/capturelog.png]({{'/styles/images/tcpdump/capturelog.png'|prepend:site.baseurl}}){:height="497" width="612"}
 
-**Note**
-```
-tcpdump 参数说明
-    # "-i any": listen on any network interface
-    # "-p": disable promiscuous mode (doesn't work anyway)
-    # "-s 0": capture the entire packet
-    # "-w": write packets to a file (rather than printing to stdout)
-    ... do whatever you want to capture, then ^C to stop it ...
-```
+  可以看到万能钥匙使用的域名是`51y5.net`，我要WiFi的谐音。
+
+  **Note**
+  ```
+  tcpdump 参数说明
+      # "-i any": listen on any network interface
+      # "-p": disable promiscuous mode (doesn't work anyway)
+      # "-s 0": capture the entire packet
+      # "-w": write packets to a file (rather than printing to stdout)
+      ... do whatever you want to capture, then ^C to stop it ...
+  ```
 
 # PIE错误
 在5.0之前的系统上可以正常抓包，但是在Android5.0及以后的系统用tcpdump抓包可能失败：
