@@ -160,6 +160,10 @@ TODO
     Enter pass phrase for cakey.pem:<enter your pass-phrase>
     Verifying - Enter pass phrase for cakey.pem:<re-enter your pass-phrase>
     ```
+    也可以加入`-passout pass:xxx`参数指定私钥密码（xxx即为密码），从而省去单独输入：
+    ```
+    $ openssl genrsa -aes256 -passout pass:xxx -out ./demoCA/private/cakey.pem 4096
+    ```
 
 3.  生成 CA 证书请求  
     为了获取一个 CA 根证书，我们需要先制作一份证书请求。用先前生成的 CA 私钥对证书请求签名。
@@ -212,7 +216,24 @@ TODO
     ```
     **Note:**
     * extra challenge password:  
-     [https://serverfault.com/questions/266232/what-is-a-challenge-password](https://serverfault.com/questions/266232/what-is-a-challenge-password)
+     [https://serverfault.com/questions/266232/what-is-a-challenge-password](https://serverfault.com/questions/266232/what-is-a-challenge-password)  
+
+    同样，如果想省去单独输入密码和证书相关信息， 可以加入参数使用如下指令：   
+    ```
+    $ openssl req -passin pass:xxx \
+          -subj "/C=CN/ST=Sichuan/L=Chengdu/O=Phicomm/CN=Bob" \
+          -new -days 365 -sha256 -extensions v3_req \
+          -key ./demoCA/private/cakey.pem \
+          -out ./demoCA/careq.pem
+    ```  
+    参数`-passin pass:xxx`指定私钥口令（xxx为私钥生成时输入的密码），  
+    参数`-subj "/C=CN/ST=Sichuan/L=Chengdu/O=Phicomm/CN=Bob"`指定证书相关信息，其中：  
+    * `C`   是Country Name  
+    * `ST`  是State  
+    * `L`   是Locality Name  
+    * `O`   是Organization Name  
+    * `CN`  是Common Name  
+
 
 4.  对 CA 证书请求进行签名  
     在实际应用中，用户可以通过向知名 CA 递交证书请求来申请证书。但是在这里，我们需要建立的是一个根 CA ，只能由我们自己来对证书请求进行签名。所以我们让 OpenSSL 使用证书请求中附带的密钥对该请求进行签名，也就是所谓的“ self sign ”：
@@ -286,6 +307,14 @@ TODO
 5.  以上两个步骤可以合二为一
     ```
     $ openssl req -new -x509 -days 365 -key ./demoCA/private/cakey.pem -sha256 -extensions v3_ca -out ./demoCA/cacert.pem
+    ```
+    指定密码和证书信息参数可用如下指令替换(使用默认openssl.cnf的可以去掉`-config`参数)：
+    ```
+    $ openssl req -config openssl.cnf -passin pass:xxx \
+            -subj "/C=CN/ST=Sichuan/L=Chengdu/O=Phicomm/CN=Bob" \
+            -key ./demoCA/private/cakey.pem \
+            -new -x509 -days 365 -sha256 -extensions v3_ca \
+            -out ./demoCA/cacert.pem
     ```
     得到的目录结构如下：
     ```
