@@ -232,8 +232,7 @@ TODO
     * `ST`  是State  
     * `L`   是Locality Name  
     * `O`   是Organization Name  
-    * `CN`  是Common Name  
-
+    * `CN`  是Common Name   
 
 4.  对 CA 证书请求进行签名  
     在实际应用中，用户可以通过向知名 CA 递交证书请求来申请证书。但是在这里，我们需要建立的是一个根 CA ，只能由我们自己来对证书请求进行签名。所以我们让 OpenSSL 使用证书请求中附带的密钥对该请求进行签名，也就是所谓的“ self sign ”：
