@@ -18,3 +18,6 @@ published: false
 # Terms and concepts
 
 To be continue…
+
+
+https://docs.oracle.com/javase/tutorial/reflect/index.html
