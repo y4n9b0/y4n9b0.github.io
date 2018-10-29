@@ -109,7 +109,7 @@ public final class RealInterceptorChain implements Interceptor.Chain {
   }
 }
 ```
-关键方法`proceed()`，通过index自增获取下一个拦截器，同时新建了一个名为next的RealInterceptorChain链，该链除了index自增，其他属性完全没变（构造参数没变），再将新建的next链作为参数传入下一个拦截器，下一个拦截器调用`intercept(next)`方法处理，处理完成得到response并返回。  
+两个`proceed()`方法，第一个方法传入默认参数调用的还是第二个`proceed()`方法，在第二个通过index自增获取下一个拦截器，同时新建了一个名为next的RealInterceptorChain链，该链对index进行自增，再将新建的next链作为参数传入下一个拦截器，下一个拦截器调用`intercept(next)`方法处理，处理完成得到response并返回。  
 其中下一个拦截器实现的`intercept()`方法中获取到next链，处理完成后又会调用链的`proceed()`方法，于是形成了递归调用。  
 `interceptors`会原封不动地传入到每一个新建的链中，通过index的自增依次递归调用`interceptors`列表中的拦截器，直至最后一个处理完成，依次返回response。  
 两个问题：
@@ -322,5 +322,7 @@ public final class ConnectInterceptor implements Interceptor {
   }
 }
 ```
-ConnectInterceptor实现的`intercept()`方法中，首先是把chain强转为RealInterceptorChain，通过RealInterceptorChain的`proceed()`方法来实现递归调用，与HttpLoggingInterceptor的差别在于`proceed()`方法的参数，ConnectInterceptor这样做的可以改变后续递归链的属性（前文描述过，在RealInterceptorChain中通过传入的参数构建新的链）。  
+ConnectInterceptor实现的`intercept()`方法中，首先是把chain强转为RealInterceptorChain，通过RealInterceptorChain的`proceed()`方法来实现递归调用，与HttpLoggingInterceptor的差别在于`proceed()`方法的参数不同。  
+还记得RealInterceptorChain中的两个`proceed()`方法吗?其实对应的就是这两种方式。  
+ConnectInterceptor这种带参数递归调用的方式可以改变后续递归链的属性。  
 自定义拦截器可以根据自己需求来决定使用何种调用方法。
