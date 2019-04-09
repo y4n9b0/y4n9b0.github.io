@@ -3,7 +3,7 @@ layout: post
 title:  OpenSSL CA
 date:   2018-05-09 09:00:00 +0800
 categories: Linux
-tags: OpenSSL CA
+tags: OpenSSL
 published: true
 ---
 
