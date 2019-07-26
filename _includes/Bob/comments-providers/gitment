@@ -12,7 +12,14 @@ const myTheme = {
     return container
   },
 }
+// https://github.com/imsun/gitment/issues/116#issuecomment-388001420
+// https://github.com/imsun/gitment/issues/116#issuecomment-414540375
+var id = window.location.href;
+if(id.length>=50){  // 兼容长度没问题且使用window.location.href已开通的评论
+  id = String(+ new Date('{{page.date}}'));
+}
 const gitment = new Gitment({
+  id: id,
   owner: '1step2hell',
   repo: '1step2hell.github.io',
   oauth: {
