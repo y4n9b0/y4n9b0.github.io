@@ -1,37 +1,37 @@
 # Site settings
-name			: ᴮᵒᵇ
-email			: 40080007@qq.com
-author			: ᴮᵒᵇ
-url			: https://1step2hell.github.io/
-resume_site		: https://1step2hell.github.io/
-github			: https://github.com/1step2hell/
-baseurl			: ""
-banner			: Fear springs from ignorance.
+name                : ᴮᵒᵇ
+email               : 40080007@qq.com
+author              : ᴮᵒᵇ
+url                 : https://1step2hell.github.io/
+resume_site         : https://1step2hell.github.io/author
+github              : https://github.com/1step2hell/
+baseurl             : ""
+banner              : Fear springs from ignorance.
 
 #gems
-gems			: [jekyll-paginate,jemoji]
+gems                : [jekyll-paginate,jemoji]
 
-permalink		: /:year/:month/:day/:title/
-paginate		: 10
+permalink           : /:year/:month/:day/:title/
+paginate            : 10
 
-exclude			: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
+exclude             : ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
 
-github_username		: 1step2hell
-highlighter		: rouge
+github_username     : 1step2hell
+highlighter         : rouge
 
 # Build settings
-markdown		: kramdown
+markdown            : kramdown
 
-baidu_analysis		: 94be4b0f9fc5d94cc0d0415ea6761ae9
+baidu_analysis      : 94be4b0f9fc5d94cc0d0415ea6761ae9
 
 comments:
-    provider 		: gitment
-    #duoshuo	:
-    #   short_name 	: xxx
-    #disqus 	:
-    #   short_name 	: xxx
-    #facebook	:
-    #   appid 		: 123
-    #   num_posts	: 5
-    #   width		: 580
-    #   colorscheme	: light
+    provider        : gitment
+    #duoshuo    :
+    #   short_name  : xxx
+    #disqus     :
+    #   short_name  : xxx
+    #facebook   :
+    #   appid       : 123
+    #   num_posts   : 5
+    #   width       : 580
+    #   colorscheme : light
