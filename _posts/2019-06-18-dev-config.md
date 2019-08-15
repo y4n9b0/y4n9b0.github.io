@@ -72,3 +72,28 @@ published: true
     bind -r k select-pane -U        # 绑定 k 为 ↑
     bind -r l select-pane -R        # 绑定 l 为 →
     ```
+
+## git
+
+1. .gitconfig
+
+    ```git
+    [user]
+        name = ᴮᵒᵇ
+        email = step2hell@qq.com
+    [alias]
+        co = checkout
+        br = branch
+        ci = commit
+        st = status
+        rb = rebase
+        lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    [push]
+        default = simple
+    [gui]
+        encoding = utf-8
+    [core]
+        quotepath = false
+    [color]
+        ui = auto
+    ```
