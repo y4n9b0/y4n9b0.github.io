@@ -31,29 +31,39 @@ permalink: /cv/
 
 ### 技能掌握
 
-* 精通 Java，熟悉 Kotlin，了解 C。
-* 熟悉 MVC、MVP、MVVM 架构以及 Retrofit、RxJava、Dagger、Glide 等开源库。
-* 熟练使用 Android Studio、Gradle、Git、Vim 等开发工具，以及 Linux、MacOS。
+* 熟悉 Java，了解 Kotlin、C。
+* 熟悉常见的应用架构以及知名开源库。
+* 熟练使用 Android Studio、Git、Vim 等开发工具，熟悉 Linux、MacOS。
 * 英语 CET4，口语良好。
 
 ### 工作经历
 
-2018.10～至今&emsp;&nbsp;&nbsp;成都运力科技有限公司，货车帮架构组 Android 工程师。
+2018.10～2019.8&nbsp;&nbsp;成都运力科技有限公司，货车帮架构组 Android 工程师。
 
-* 开发 UI 组件库
-* 重构社会化分享 SDK
-* 开发 debug 服务
-* Android 8.0 适配升级
-* 公共库 SDK 迭代和维护
-* 业务应用支持
+* 开发 UI 组件库，实现货车帮 UI 风格统一。
+* 重构社会化分享 SDK，由第三方库 Mob ShareSDK 转变为各社交平台 native SDK 实现。
+* 开发 debug 服务库，提供各种快捷接口，方便应用开发测试。
+* 负责货车帮旗下全系 App Android 8.0 适配，实现百万级 DAU 应用平稳升级。
+* 公共库 SDK 迭代和维护，以及各业务应用支持。
 
-2018.4～2018.8&emsp;四川斐讯全智信息技术有限公司，Android 工程师。
+2018.3～2018.8&emsp;四川斐讯全智信息技术有限公司，Android 工程师。
 
-2017.8～2018.3&emsp;成都 NEXA 科技有限公司，Android 工程师。
+* 参与斐讯智能音箱项目，完成音箱控制 App 智能家居模块开发，实现了音箱与斐讯合作厂商的智能设备互连。
+* 参与斐讯路由器项目，完成路由器 App 共享 WiFi 模块开发，通过打赏机主实现共享 WiFi 上网。
 
-2015.8～2017.7&emsp;TCL 通讯科技有限公司，Android 工程师。
+2015.8～2017.12&emsp;TCL 通讯科技有限公司，Android 工程师。
 
-2012.4～2015.7&emsp;深圳市中易通科技有限公司，Android 工程师。
+* 就职于通用应用（Generic App）部门，将 TCL 手机内置的系统核心应用抽取为公共应用，统一设计开发，再提供给各手机项目方集成，避免各手机项目组重复开发，以节省内部资源。
+
+  作为 owner 先后负责了计算器（Calculator）、手机管家（Phone Guard）、售后支持（Support Center）等应用的开发、维护以及任务分配。
+
+* 参与 TCL Simba6 手机项目的系统 Framework 开发，完成 notification 模块的定制，为上层应用提供额外接口。
+
+2012.4～2015.7&emsp;深圳市中易通网络技术有限公司，Android 工程师。
+
+* 负责公司品牌 VEB 手机内置核心应用的开发，基于 Android 原生通讯录 Contacts、 图库 Gallery、计算器 Calculator 等应用进行功能扩展和维护。
+* 独立完成 VEB 文件管理器开发。
+* 参与 VEB 手机安全应用开发，完成 root 检测、数据加密备份、丢失定位等功能，增强手机安全性。
 
 2010.8～2012.2&emsp;中航微电子有限公司，IT 工程师。
 
