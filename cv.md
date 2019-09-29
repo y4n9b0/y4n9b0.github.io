@@ -48,20 +48,25 @@ permalink: /cv/
 
 2018.3～2018.8&emsp;四川斐讯全智信息技术有限公司，Android 工程师。
 
-* 参与斐讯智能音箱项目，完成音箱控制 App 智能家居模块开发，实现了音箱与斐讯合作厂商的智能设备互连。
+* 参与斐讯智能音箱 R1 项目，完成音箱控制 App 智能家居模块开发，实现了音箱与斐讯合作厂商的智能设备互连。
 * 参与斐讯路由器项目，完成路由器 App 共享 WiFi 模块开发，通过打赏机主实现共享 WiFi 上网。
 
-2015.8～2017.12&emsp;TCL 通讯科技有限公司，Android 工程师。
+2015.8～2017.12&emsp;TCL 通讯科技（成都）有限公司，Android 工程师。
 
-* 就职于通用应用（Generic App）部门，将 TCL 手机内置的系统核心应用抽取为公共应用，统一设计开发，再提供给各手机项目方集成，避免各手机项目组重复开发，以节省内部资源。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参与手机系统内置应用开发，作为 owner 先后负责了计算器 Calculator 、手机管家 Phone Guard、<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;售后支持 Support Center 等应用的开发、维护以及任务分配。
 
-  作为 owner 先后负责了计算器（Calculator）、手机管家（Phone Guard）、售后支持（Support Center）等应用的开发、维护以及任务分配。
+* 手机管家<br>
+    限制应用开机自启动、相互唤醒，后台管理，文件扫描以及垃圾清理。
 
-* 参与 TCL Simba6 手机项目的系统 Framework 开发，完成 notification 模块的定制，为上层应用提供额外接口。
+* 售后支持<br>
+    该应用提供 TCL 手机售后相关服务，包括电子保修卡注册，用户满意度问卷调查，硬件检测，维修网点信息查询以及在线咨询。
+
+* 参与 TCL Simba6 手机项目的系统 Framework 开发，完成 notification 模块的定制，为上层应用提供额外功能接口。
 
 2012.4～2015.7&emsp;深圳市中易通网络技术有限公司，Android 工程师。
 
-* 负责公司品牌 VEB 手机内置核心应用的开发，基于 Android 原生通讯录 Contacts、 图库 Gallery、计算器 Calculator 等应用进行功能扩展和维护。
+* 负责公司品牌 VEB 手机内置核心应用的开发，基于 Android 原生通讯录 Contacts 、 图库 Gallery 、计算器 Calculator 等应用进行功能扩展和维护。
 * 独立完成 VEB 文件管理器开发。
 * 参与 VEB 手机安全应用开发，完成 root 检测、数据加密备份、丢失定位等功能，增强手机安全性。
 
