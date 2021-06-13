@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  version control of component-based project
+title:  组件化工程版本控制
 date:   2020-09-07 11:00:00 +0800
 categories: Android
 tags: component-based
