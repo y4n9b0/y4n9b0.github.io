@@ -21,25 +21,24 @@ fun main() {
 }
 
 class Foo private constructor(builder: Builder) {
-    var bar: Int
-        private set
+    val bar: Int
 
     init {
         bar = builder.bar
     }
 
     companion object {
-        fun build(block: Builder.() -> Unit) = Builder(block).build()
+        fun build(block: Builder.() -> Unit) = Builder(block)()
     }
 
-    class Builder private constructor() {
+    class Builder internal constructor(block: Builder.() -> Unit) {
         var bar: Int = 0
 
-        internal constructor(block: Builder.() -> Unit) : this() {
+        init {
             block()
         }
 
-        internal fun build(): Foo = Foo(this)
+        internal operator fun invoke(): Foo = Foo(this)
     }
 }
 ```
