@@ -28,7 +28,7 @@ class Foo private constructor(builder: Builder) {
     }
 
     companion object {
-        fun build(block: Builder.() -> Unit) = Builder(block)()
+        fun build(block: Builder.() -> Unit) = Foo(Builder(block))
     }
 
     class Builder internal constructor(block: Builder.() -> Unit) {
@@ -37,8 +37,6 @@ class Foo private constructor(builder: Builder) {
         init {
             block()
         }
-
-        internal operator fun invoke(): Foo = Foo(this)
     }
 }
 ```
