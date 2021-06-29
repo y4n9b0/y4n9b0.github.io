@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  install win10
+title:  win10 installation
 date:   2020-08-24 10:30:00 +0800
 categories: system
 tags: windows
