@@ -28,41 +28,58 @@ gradle 自身提供的 dependencies 命令提供的树状结构在某些场合�
 
 ```groovy
 project.afterEvaluate {
-    Set<Variant> variants
     project.plugins.withId('com.android.application') {
-        variants = project.android.applicationVariants
+        project.android.applicationVariants.all { variant ->
+            predicate(variant)
+        }
     }
     project.plugins.withId('com.android.library') {
-        variants = project.android.libraryVariants
+        project.android.libraryVariants.all { variant ->
+            predicate(variant)
+        }
     }
-    variants?.all { variant ->
-        tasks.create(name: "flatDeps${variant.name.capitalize()}", description: "flat all dependencies") {
-            doLast {
-                def dstFile = new File("${rootDir}/${project.name}/build/outputs/logs/flatDeps.txt")
-                dstFile.parentFile.mkdirs()
-                dstFile.withOutputStream { osm ->
-                    Configuration configuration
-                    try {
-                        configuration = project.configurations."${variant.name}CompileClasspath"
-                    } catch (Exception ignored) {
-                        configuration = project.configurations."_${variant.name}Compile"
+}
+
+def predicate(variant) {
+    tasks.create(
+            group: "dependency",
+            name: "flatDeps${variant.name.capitalize()}",
+            description: "flat all dependencies"
+    ) {
+        doLast {
+            def logDir = file("$buildDir${File.separator}outputs${File.separator}logs")
+                    .with(true) {
+                        it.mkdirs()
                     }
-                    configuration.resolvedConfiguration.lenientConfiguration.allModuleDependencies.sort(true, new Comparator<ResolvedDependency>() {
-                        @Override
-                        int compare(ResolvedDependency l, ResolvedDependency r) {
-                            def idL = l.module.id
-                            def idR = r.module.id
-                            def groupResult = idL.group <=> idR.group
-                            def artifactResult = idL.name <=> idR.name
-                            def versionResult = idL.version <=> idR.version
-                            return groupResult != 0 ? groupResult : (artifactResult != 0 ? artifactResult : versionResult)
+
+            file("${logDir}${File.separator}flatDeps${variant.name.capitalize()}.txt")
+                    .with(true) {
+                        delete(it)
+                    }
+                    .withOutputStream { outputStream ->
+                        Configuration configuration
+                        try {
+                            configuration = project.configurations."${variant.name}CompileClasspath"
+                        } catch (Exception ignored) {
+                            configuration = project.configurations."_${variant.name}Compile"
                         }
-                    }).each {
-                        def identifier = it.module.id
-                        osm.write("${identifier.group}:${identifier.name}:${identifier.version}\n".getBytes())
+                        configuration.resolvedConfiguration.lenientConfiguration.allModuleDependencies
+                                .sort(true, new Comparator<ResolvedDependency>() {
+                                    @Override
+                                    int compare(ResolvedDependency l, ResolvedDependency r) {
+                                        def idL = l.module.id
+                                        def idR = r.module.id
+                                        def groupResult = idL.group <=> idR.group
+                                        def artifactResult = idL.name <=> idR.name
+                                        def versionResult = idL.version <=> idR.version
+                                        return groupResult != 0 ? groupResult : (artifactResult != 0 ? artifactResult : versionResult)
+                                    }
+                                })
+                                .each {
+                                    def identifier = it.module.id
+                                    outputStream.write("${identifier.group}:${identifier.name}:${identifier.version}\n".getBytes())
+                                }
                     }
-                }
-            }
         }
     }
 }
