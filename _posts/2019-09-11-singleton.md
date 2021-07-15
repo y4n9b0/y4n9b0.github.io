@@ -25,6 +25,7 @@ public class Singleton {
 
 // 饿汉模式变种，将 instance 放在 static 代码块
 // 静态代码块必须放在 instance 定义之后，否则静态代码块赋值无效（可以正常编译）
+// kotlin 的 object 实现原理便是这种
 public class Singleton {
     private static Singleton instance = null;
 
@@ -52,10 +53,10 @@ public class Singleton {
     private Singleton (){}  
   
     public static Singleton getInstance() {  
-    if (instance == null) {  
-        instance = new Singleton();  
-    }  
-    return instance;  
+        if (instance == null) {  
+            instance = new Singleton();  
+        }  
+        return instance;  
     }  
 }
 ```
@@ -71,10 +72,10 @@ public class Singleton {
     private Singleton (){}  
 
     public static synchronized Singleton getInstance() {  
-    if (instance == null) {  
-        instance = new Singleton();  
-    }  
-    return instance;  
+        if (instance == null) {  
+            instance = new Singleton();  
+        }  
+        return instance;  
     }  
 }  
 ```
