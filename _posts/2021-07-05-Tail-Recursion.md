@@ -84,6 +84,20 @@ fun fib(n: Int): Int {
 }
 ```
 
+```kotlin
+// 写法四，巧用 sequence 生成方法，装*专用
+fun fib(n: Int): Int {
+    var a = 1
+    return generateSequence(1) { (a + it).apply { a = it } }.elementAt(n - 1)
+}
+
+// 可以用 BigDecimal 解决整数越界问题。不过我们主要关注的是思路，是否越界不是这里的重点
+fun fib(n: Int): BigDecimal {
+    var a = BigDecimal.ONE
+    return generateSequence(BigDecimal.ONE) { (a + it).apply { a = it } }.elementAt(n - 1)
+}
+```
+
 ### 尾递归为什么可以优化
 
 在回答这个问题之前，我们先谈谈函数栈的作用。
