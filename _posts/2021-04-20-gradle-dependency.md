@@ -16,11 +16,11 @@ published: true
 
 ## 一、树状 dependencies
 
+以树状结构列出 module(这里是app module) 所有的依赖：
+
 ```bash
 gradle :app:dependencies
 ```
-
-以树状结构列出 module(这里是app module) 所有的依赖。
 
 ## 二、平铺 dependencies
 
@@ -93,8 +93,14 @@ def predicate(variant) {
 
 ## 四、dependencyInsight
 
+反向查看一个 lib 被哪些 module 依赖：
+
 ```bash
 gradle :app:dependencyInsight --configuration debugCompileClasspath --dependency com.jingdong.wireless.cdyjy:utils
 ```
 
-反向查看一个 lib 被哪些 module 依赖。
+如果配置有 flavor，则需要加上 flavor 名字（参考 [Why did gradlew :app:dependencyInsight fail](https://stackoverflow.com/a/61530873/7368406){:target="_blank"}）：
+
+```bash
+gradle :app:dependencyInsight --configuration ${flavor}DebugCompileClasspath --dependency com.jingdong.wireless.cdyjy:utils
+```
