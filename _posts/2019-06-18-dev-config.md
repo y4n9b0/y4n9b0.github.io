@@ -97,3 +97,50 @@ published: true
     [color]
         ui = auto
     ```
+
+## bash
+
+1. .bash_profile
+
+    ```bash
+    # Android Studio
+    ANDROID_STUDIO=/Applications/Android\ Studio.app/Contents
+    export PATH=$PATH:$ANDROID_STUDIO/MacOS:$ANDROID_STUDIO/bin
+
+    # Gradle
+    GRADLE_6=${HOME}/.gradle/wrapper/dists/gradle-6.5-all/2oz4ud9k3tuxjg84bbf55q0tn/gradle-6.5
+    GRADLE_7=${HOME}/.gradle/wrapper/dists/gradle-7.0.2-all/7era6s5ay7zsbhuvl0oc9g94s/gradle-7.0.2
+    export PATH=$PATH:${GRADLE_7}/bin
+
+    # openJDK
+    JDK8=/Users/bob/Library/Java/JavaVirtualMachines/corretto-1.8.0_312/Contents/Home
+    JDK11=$ANDROID_STUDIO/jre/Contents/Home
+    export JAVA_HOME=$JDK11
+    export PATH=$PATH:$JAVA_HOME/bin
+    export CLASSPATH=$JAVA_HOME/lib:$JAVA_HOME/lib
+
+    # Android SDK
+    export ANDROID_HOME=/Users/bob/Library/Android/sdk
+    export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
+
+    # java keystore
+    export ANDROID_STORE_PWD=xxx
+    export ANDROID_KEY_PWD=xxx
+
+    # rust
+    export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+    export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+    # cargo
+    export PATH="$HOME/.cargo/bin:$PATH"
+
+    # MySQL
+    MySQL_HOME=/usr/local/mysql
+    export PATH=$PATH:$MySQL_HOME/bin:$MySQL_HOME/support-files
+
+    # http://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
+    PS1="\[\e[1;32m\]\u\[\e[1;33m\]@\[\e[1;34m\]\h\[\e[1;36m\] \W\[\e[0m\]\$ "
+    ```
+
+<!-- https://www.cnblogs.com/lazyfang/p/7643621.html -->
+<!-- https://blog.csdn.net/gausszhch/article/details/5628009 -->
+<!-- https://forum.ubuntu.com.cn/viewtopic.php?t=466064#p3115352 -->
