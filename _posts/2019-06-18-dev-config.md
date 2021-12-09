@@ -96,6 +96,8 @@ published: true
         quotepath = false
     [color]
         ui = auto
+    [pull]
+	    rebase = true
     ```
 
 ## bash
