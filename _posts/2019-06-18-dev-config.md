@@ -137,8 +137,12 @@ published: true
     MySQL_HOME=/usr/local/mysql
     export PATH=$PATH:$MySQL_HOME/bin:$MySQL_HOME/support-files
 
-    # http://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
-    PS1="\[\e[1;32m\]\u\[\e[1;33m\]@\[\e[1;34m\]\h\[\e[1;36m\] \W\[\e[0m\]\$ "
+    # bash http://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
+    # PS1="\[\e[1;32m\]\u\[\e[1;33m\]@\[\e[1;34m\]\h\[\e[1;36m\] \W\[\e[0m\]\$ "
+
+    # zsh
+    autoload -U colors && colors
+    PS1="%{$fg[green]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[cyan]%}%~ %{$reset_color%}%% "
     ```
 
 <!-- https://www.cnblogs.com/lazyfang/p/7643621.html -->
