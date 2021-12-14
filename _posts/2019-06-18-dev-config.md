@@ -105,6 +105,9 @@ published: true
 1. .bash_profile
 
     ```bash
+    # tree
+    alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+
     # Android Studio
     ANDROID_STUDIO=/Applications/Android\ Studio.app/Contents
     export PATH=$PATH:$ANDROID_STUDIO/MacOS:$ANDROID_STUDIO/bin
@@ -141,6 +144,17 @@ published: true
 
     # bash http://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
     # PS1="\[\e[1;32m\]\u\[\e[1;33m\]@\[\e[1;34m\]\h\[\e[1;36m\] \W\[\e[0m\]\$ "
+    ```
+
+2. .zshrc
+    
+    macOS 替换默认的 bash 为 zsh 后，原有的 ~/.bash_profile 设置不再生效。<br>
+    可以在 ~/.zshrc 文件开始添加如下设置：
+
+    ```zsh
+    if [ -f ~/.bash_profile ]; then 
+        . ~/.bash_profile;
+    fi
 
     # zsh
     autoload -U colors && colors
@@ -150,3 +164,4 @@ published: true
 <!-- https://www.cnblogs.com/lazyfang/p/7643621.html -->
 <!-- https://blog.csdn.net/gausszhch/article/details/5628009 -->
 <!-- https://forum.ubuntu.com.cn/viewtopic.php?t=466064#p3115352 -->
+<!-- https://www.jianshu.com/p/2a699726dfad -->
