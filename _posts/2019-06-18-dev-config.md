@@ -18,10 +18,12 @@ published: true
 
 2. 插件
 
-    * [OneTab](https://chrome.google.com/webstore/detail/onetab/chphlpgkkbolifaimnlloiipkdnihall)
-    * [Octotree](https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc/related)
-    * [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop)
-    * [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?utm_campaign=en)
+    * [OneTab](https://chrome.google.com/webstore/detail/onetab/chphlpgkkbolifaimnlloiipkdnihall){:target="_blank"}
+    * [Octotree](https://chrome.google.com/webstore/detail/octotree/bkhaagjahfmjljalopjnoealnfndnagc/related){:target="_blank"}
+    * [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop){:target="_blank"}
+    * [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?utm_campaign=en){:target="_blank"}
+
+    如果打不开 google 商店，也可以百度搜索相关插件文件 直接下载本地安装，比如 [极简插件 OneTab](https://chrome.zzzmh.cn/info?token=chphlpgkkbolifaimnlloiipkdnihall){:target="_blank"}
 
 ## vim
 
