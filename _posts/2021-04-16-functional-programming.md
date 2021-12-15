@@ -18,6 +18,8 @@ published: true
 
 ## 二、functional programming
 
+[函数式编程入门教程](https://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html){:target="_blank"}
+
 [什么是函数式编程思维？ - nameoverflow](https://www.zhihu.com/question/28292740/answer/100284611){:target="_blank"}
 
 [什么是函数式编程思维？ - 用心阁](https://www.zhihu.com/question/28292740/answer/40336090){:target="_blank"}
@@ -58,3 +60,12 @@ An expression e is referentially transparent if for all programs p every occurre
 ## 五、functor、applicative、monad
 
 [functors, applicatives, and monads in pictures](https://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html){:target="_blank"}
+
+<!-- 
+type systems http://lucacardelli.name/papers/typesystems.pdf
+point-free http://www.ruanyifeng.com/blog/2017/03/pointfree.html
+柯里化
+偏函数
+函子(Functor)
+Y combinator
+ -->
