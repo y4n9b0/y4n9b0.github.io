@@ -31,13 +31,20 @@ $ git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
 # 清华:
 $ git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
 
-# 替换 homebrew-bottles:
+# 替换 homebrew-bottles(zsh用户使用 ~/.zshrc):
 # 中科大:
 $ echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.bash_profile
 $ source ~/.bash_profile
 # 清华:
 $ echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles' >> ~/.bash_profile
 $ source ~/.bash_profile
+
+# 替换 homebrew-cask:
+$ cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask" 
+# 中科大:
+$ git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git
+# 清华:
+$ git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git
 
 # 应用生效:
 $ brew update
