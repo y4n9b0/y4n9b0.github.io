@@ -100,6 +100,8 @@ published: true
         ui = auto
     [pull]
 	    rebase = true
+    [rebase]
+        autoStash = true
     ```
 
 ## bash
