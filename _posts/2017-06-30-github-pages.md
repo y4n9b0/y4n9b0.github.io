@@ -50,7 +50,7 @@ username.github.io这个仓库对应地址有点例外,它对应的Github Pages�
 
 一个仓库对应着一个Github Pages博客的源码,不同点在于username.github.io这个仓库的Github Pages地址是在仓库创建的时候默认开通绑定  
 而其他任何仓库都需要自己去手动开通,对比上图:  
-![/styles/images/githubpages/repository1step2hell.png]({{ '/styles/images/githubpages/repository1step2hell.png' | prepend: site.baseurl  }} "repository 1step2hell")  
+![/styles/images/githubpages/repositoryy4n9b0.png]({{ '/styles/images/githubpages/repositoryy4n9b0.png' | prepend: site.baseurl  }} "repository y4n9b0")  
 <br>
 ![/styles/images/githubpages/repositoryLisa.png]({{ '/styles/images/githubpages/repositoryLisa.png' | prepend: site.baseurl  }} "repository Lisa")  
 
@@ -70,10 +70,10 @@ username.github.io这个仓库对应地址有点例外,它对应的Github Pages�
 写到这里,其实有一个问题,根据规则,新的博客对应的地址其实是在默认开通绑定的博客下一级.那么如果默认博客里边本身就有个页面,并且地址和新博客地址一样,这下同一个地址对应两个页面,那么会怎样呢:open_mouth:?  
 
 实践出真知,测她一扳手.  
-为了便于测试,我在1step2hell.github.io仓库里找一个现有的下级页面,点击右上角的About->Author进入author页面,这个页面的地址为<https://1step2hell.github.io/author/>,完美地符合了冲突测试条件.
-于是新建一个叫做author的仓库(注意大小写必须和上面地址里保持一致),这个仓库对应的Github Pages地址也应该为<https://1step2hell.github.io/author/>.输入这个url的时候该出现哪个页面呢?是1step2hell.github.io仓库里author下的index.html?还是author仓库里的index.html?   
+为了便于测试,我在y4n9b0.github.io仓库里找一个现有的下级页面,点击右上角的About->Author进入author页面,这个页面的地址为<https://y4n9b0.github.io/author/>,完美地符合了冲突测试条件.
+于是新建一个叫做author的仓库(注意大小写必须和上面地址里保持一致),这个仓库对应的Github Pages地址也应该为<https://y4n9b0.github.io/author/>.输入这个url的时候该出现哪个页面呢?是y4n9b0.github.io仓库里author下的index.html?还是author仓库里的index.html?   
 见证奇迹的时刻到了,下注买马的赶紧了,买定不离手.  
-从浏览器打开<https://1step2hell.github.io/author/>,结果是这个地址会对应author仓库里的页面.猜对了吗:sunglasses:?  
+从浏览器打开<https://y4n9b0.github.io/author/>,结果是这个地址会对应author仓库里的页面.猜对了吗:sunglasses:?  
 
 Github Pages在解析博客主域名下一级路劲的时候会优先去查找是否有同名的仓库,没有同名的仓库才会去默认的仓库里找是否有对应的页面.  
 当然这里还涉及到author是否开通绑定,是否有README,是否有404.html等.  

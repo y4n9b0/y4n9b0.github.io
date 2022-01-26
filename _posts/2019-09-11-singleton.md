@@ -108,7 +108,7 @@ public class Singleton {
 getInstance 方法中对 instance 进行了两次判空，第二次判空很好理解，在 instance 等于 null 的情况下才创建实例。  
 为什么需要第一次的判空呢？是为了不必要的同步。对比懒汉模式（线程安全），getInstance 方法其实只需要在第一次调用的时候加锁，第一次调用后 instance 已经实例化，不再需要加锁；于是进化成双重校验锁的模式，第一次调用会进入到 synchronized 代码块，第一次调用后 instance 已经实例化，后面调用可以通过判空使其不再进入 synchronized 代码块（减少同步开销），直接返回 instance。
 
-instance 必须配合关键字 volatile 保证可见性，具体原因参考 [有序性](https://1step2hell.github.io/2019/09/10/Java-concurrent/#%E6%9C%89%E5%BA%8F%E6%80%A7){:target="_blank"}。
+instance 必须配合关键字 volatile 保证可见性，具体原因参考 [有序性](https://y4n9b0.github.io/2019/09/10/Java-concurrent/#%E6%9C%89%E5%BA%8F%E6%80%A7){:target="_blank"}。
 
 **Note** volatile 在 JDK 1.5 之前只保证可见行，并不禁止重排序，所以理论上 DCL 在 JDK 1.5 之前可能会失效。
 参考 [JSR 133](https://jcp.org/en/jsr/detail?id=133)。

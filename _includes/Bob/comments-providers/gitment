@@ -20,11 +20,11 @@ if(id.length>=50){  // 兼容长度没问题且使用window.location.href已开�
 }
 const gitment = new Gitment({
   id: id,
-  owner: '1step2hell',
-  repo: '1step2hell.github.io',
+  owner: 'y4n9b0',
+  repo: 'y4n9b0.github.io',
   oauth: {
-    client_id: '7c88a4e8599e9768e70d',
-    client_secret: 'ab96a3945697b00cfd3d337366225e87e798c29d',
+    client_id: '26a811c19ccf373c2186',
+    client_secret: '2db874a2e83b0945116ad78fba9d2b8dc1cfbfb1',
   },
   theme: myTheme,
 })

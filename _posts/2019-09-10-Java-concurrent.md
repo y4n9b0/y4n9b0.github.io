@@ -128,7 +128,7 @@ synchronized 两个缺点：
 * 重量级锁
 * 独占锁
 
-参考 [Java 锁](https://1step2hell.github.io/2019/09/09/Java-lock/#synchronized){:target="_blank"}
+参考 [Java 锁](https://y4n9b0.github.io/2019/09/09/Java-lock/#synchronized){:target="_blank"}
 
 ## volatile
 

@@ -74,4 +74,4 @@ permalink: /cv/
 
 ### 个人博客
 
-<https://1step2hell.github.io/>
+<https://y4n9b0.github.io/>
