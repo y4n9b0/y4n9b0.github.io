@@ -1,6 +1,8 @@
 {% if site.comments.provider and page.comments != false %}
 
 {% case site.comments.provider %}
+{% when "gitalk" %}
+  {% include Bob/comments-providers/gitalk %}
 {% when "gitment" %}
   {% include Bob/comments-providers/gitment %}
 {% when "disqus" %}

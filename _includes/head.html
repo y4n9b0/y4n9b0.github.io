@@ -19,8 +19,11 @@
 	<link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl }}">
 	<link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ '/feed.xml' | prepend: site.baseurl }}">
 	<!-- 加载gitment的css和js文件 -->
-	<link rel="stylesheet" href="/styles/css/gitment.css"> 
-	<script src="/styles/js/gitment.js"></script>
+	<!-- <link rel="stylesheet" href="/styles/css/gitment.css"> 
+	<script src="/styles/js/gitment.js"></script> -->
+	<!-- 加载gitalk的css和js文件 https://github.com/gitalk/gitalk/blob/master/readme-cn.md -->
+	<link rel="stylesheet" href="/styles/css/gitalk.css"> 
+	<script src="/styles/js/gitalk.js"></script>
 
 	<meta name="keywords" content="{{ page.title | append: ', ' | append: site.name | append: ', ' | append: site.meta_description}}">
 	<meta name="description" content="{{site.meta_description}}">
