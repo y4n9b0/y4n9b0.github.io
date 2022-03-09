@@ -35,19 +35,21 @@ published: true
 2. .vimrc
 
     ```vim
-    set nocompatible            " 关闭vi兼容模式
-    set shiftwidth=4            " 设置缩进为4个空格
-    set tabstop=4               " 设置tab键4个空格长度
-    set expandtab               " 转换tab为空格
-    set smartindent             " 开启smart缩进
-    set number                  " 显示行号
-    syntax on                   " 开启颜色高亮
-    colorscheme desert          " 设置配色方案
-    set cursorline              " 突出显示当前行
+    set nocompatible                        " 关闭vi兼容模式
+    set shiftwidth=4                        " 设置缩进为4个空格
+    set tabstop=4                           " 设置tab键4个空格长度
+    set expandtab                           " 转换tab为空格
+    set smartindent                         " 开启smart缩进
+    set number                              " 显示行号
+    syntax on                               " 开启颜色高亮
+    colorscheme desert                      " 设置配色方案
+    set cursorline                          " 突出显示当前行
     highlight CursorLine cterm=NONE ctermbg=black ctermfg=green guibg=black guifg=green
-    set ruler                   " 打开状态栏标尺
-    set incsearch               " 输入搜索内容时就显示搜索结果
-    set hlsearch                " 搜索时高亮显示被找到的文本
+    set ruler                               " 打开状态栏标尺
+    set incsearch                           " 输入搜索内容时就显示搜索结果
+    set hlsearch                            " 搜索时高亮显示被找到的文本
+    au FileType gitcommit setlocal cc=72    " 设置git commit 标尺，ColorColumn
+    au FileType gitcommit setlocal tw=72    " 设置git commit 行宽，TextWidth
     ```
 
 3. 插件
