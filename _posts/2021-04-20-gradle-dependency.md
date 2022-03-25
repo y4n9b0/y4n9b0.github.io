@@ -104,3 +104,9 @@ gradle :app:dependencyInsight --configuration debugCompileClasspath --dependency
 ```bash
 gradle :app:dependencyInsight --configuration ${flavor}DebugCompileClasspath --dependency com.jingdong.wireless.cdyjy:utils
 ```
+
+* `app` 替换成需要查看的 module name
+* `debugCompileClasspath` 替换成对应的 configuration。
+   如何查看所有的 configuration：`gradle projects --info`，找到对应 module 的 Configure project section。
+   * 参考 [How can I get a list of all configurations for a Gradle project?](https://stackoverflow.com/questions/41173616/how-can-i-get-a-list-of-all-configurations-for-a-gradle-project){:target="_blank"}
+* `com.jingdong.wireless.cdyjy:utils` 替换成需要查看的 library(group:artifact)
