@@ -9,7 +9,7 @@ baseurl             : ""
 banner              : Fear springs from ignorance.
 
 #gems
-gems                : [jekyll-paginate,jemoji]
+# gems                : [jekyll-paginate,jemoji]
 
 permalink           : /:year/:month/:day/:title/
 paginate            : 10
@@ -17,7 +17,7 @@ paginate            : 10
 exclude             : ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
 
 github_username     : y4n9b0
-highlighter         : rouge
+# highlighter         : rouge
 
 # Build settings
 markdown            : kramdown
