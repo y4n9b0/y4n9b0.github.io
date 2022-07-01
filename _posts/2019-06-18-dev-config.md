@@ -148,6 +148,9 @@ published: true
     MySQL_HOME=/usr/local/mysql
     export PATH=$PATH:$MySQL_HOME/bin:$MySQL_HOME/support-files
 
+    # gerrit
+    alias gerritpush='function _(){ git push origin HEAD:refs/for/$1; };_'
+
     # bash http://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
     # PS1="\[\e[1;32m\]\u\[\e[1;33m\]@\[\e[1;34m\]\h\[\e[1;36m\] \W\[\e[0m\]\$ "
     ```
@@ -171,3 +174,4 @@ published: true
 <!-- https://blog.csdn.net/gausszhch/article/details/5628009 -->
 <!-- https://forum.ubuntu.com.cn/viewtopic.php?t=466064#p3115352 -->
 <!-- https://www.jianshu.com/p/2a699726dfad -->
+<!-- https://stackoverflow.com/questions/7131670/make-a-bash-alias-that-takes-a-parameter -->
