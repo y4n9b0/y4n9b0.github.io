@@ -23,8 +23,8 @@ const gitment = new Gitment({
   owner: 'y4n9b0',
   repo: 'y4n9b0.github.io',
   oauth: {
-    client_id: '26a811c19ccf373c2186',
-    client_secret: '2db874a2e83b0945116ad78fba9d2b8dc1cfbfb1',
+    client_id: '7c88a4e8599e9768e70d',
+    client_secret: 'd7e5728d8fb1887fc8c7e9aa8da84e9233c9db07',
   },
   theme: myTheme,
 })

@@ -5,8 +5,8 @@ if(id.length>=50){  // 兼容长度没问题且使用window.location.href已开�
   id = String(+ new Date('{{page.date}}'));
 }
 var gitalk = new Gitalk({
-  clientID: 'a8a32a090007e7975107',
-  clientSecret: '3e939313bdc25fde3c2b1dcf6dca7ddf555c9689',
+  clientID: '7c88a4e8599e9768e70d',
+  clientSecret: 'd7e5728d8fb1887fc8c7e9aa8da84e9233c9db07',
   repo: 'y4n9b0.github.io',
   owner: 'y4n9b0',
   admin: ['y4n9b0'],
