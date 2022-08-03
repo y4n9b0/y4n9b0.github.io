@@ -11,7 +11,11 @@ var gitalk = new Gitalk({
   owner: 'y4n9b0',
   admin: ['y4n9b0'],
   id: id, // Ensure uniqueness and length less than 50
-  distractionFreeMode: false  // Facebook-like distraction free mode
+  distractionFreeMode: false,  // Facebook-like distraction free mode
+  // https://github.com/gitalk/gitalk/issues/514
+  // https://prohibitorum.top/2022/07/26/解决-Gitalk-无法获取-Github-Token-问题/
+  // https://github.com/gitalk/gitalk/blob/master/readme-cn.md#设置
+  proxy: 'https://cors-server-ecru.vercel.app/github_access_token'
 })
 gitalk.render('gitalk-container')
 </script>
