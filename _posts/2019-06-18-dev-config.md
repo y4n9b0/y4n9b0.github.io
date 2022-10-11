@@ -91,6 +91,7 @@ published: true
         ci = commit
         st = status
         rb = rebase
+        af = !git add -A && git commit --amend --no-edit && git push --force && :
         lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     [push]
         default = simple
@@ -175,3 +176,4 @@ published: true
 <!-- https://forum.ubuntu.com.cn/viewtopic.php?t=466064#p3115352 -->
 <!-- https://www.jianshu.com/p/2a699726dfad -->
 <!-- https://stackoverflow.com/questions/7131670/make-a-bash-alias-that-takes-a-parameter -->
+<!-- https://stackoverflow.com/a/25915221 -->
