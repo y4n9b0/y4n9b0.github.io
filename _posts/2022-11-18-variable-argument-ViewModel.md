@@ -13,8 +13,8 @@ published: true
 ## 前言
 
 ```gradle
-implementation androidx.fragment:fragment-ktx:1.5.4
-implementation androidx.activity:activity-ktx:1.5.1
+implementation 'androidx.fragment:fragment-ktx:1.5.4'
+implementation 'androidx.activity:activity-ktx:1.5.1'
 ```
 
 Android 官方 Activity/Fragment 扩展库里对 ViewModel 的扩展构造方法无法携带参数，使用不太方便，轮一个支持可变长参数的 ViewModel 扩展方法。
