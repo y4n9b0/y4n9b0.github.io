@@ -80,3 +80,11 @@ IO redirections 指的是重定向标准 IO 流（上面提及的 3 个默认文
 
     /dev/null 是空设备文件，它就像一个无底洞，会丢弃一切写入其中的数据，而且没有任何可以读取的内容。  
     示例中的 command 使用 `ls` 可以很方便的进行实践，当列举的路径没有对应文件时就会输出标准错误 `No such file or directory`。
+
+# tee
+
+输出到终端的同时重定向到文件
+
+```bash
+command | tee output.txt
+```
