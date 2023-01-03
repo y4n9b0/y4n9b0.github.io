@@ -101,6 +101,7 @@ Glide 的默认用法：
                 return true
             }
         })
+        .submit()
 ```
 
 <!-- https://mp.weixin.qq.com/s/dExd6EUcvmkUCO-RZHQOWw -->
