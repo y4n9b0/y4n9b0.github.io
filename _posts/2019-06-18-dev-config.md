@@ -128,7 +128,7 @@ published: true
     JDK8=/Users/bob/Library/Java/JavaVirtualMachines/corretto-1.8.0_312/Contents/Home
     JDK11=$ANDROID_STUDIO/jre/Contents/Home
     export JAVA_HOME=$JDK11
-    export PATH=$PATH:$JAVA_HOME/bin
+    export PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$JAVA_HOME/jre/lib
     export CLASSPATH=$JAVA_HOME/lib:$JAVA_HOME/lib
 
     # Android SDK
