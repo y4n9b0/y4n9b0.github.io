@@ -114,6 +114,9 @@ Home 目录下新建 .gitconfig 文件：
     ```
 两种方式理论上是一回事，都是同一个下载链接，方法 2 还需要安装 wget，所以用方法 1 就好。但方法 2 的好处是，命令行更加方便于脚本自动化安装。
 
+### 插件：[OneTab](https://chrome.google.com/webstore/detail/onetab/chphlpgkkbolifaimnlloiipkdnihall){:target="_blank"}<br>
+如果打不开 google 商店，也可以百度搜索相关插件文件 直接下载本地安装，比如 [极简插件 OneTab](https://chrome.zzzmh.cn/info/chphlpgkkbolifaimnlloiipkdnihall){:target="_blank"}
+
 ## Android Studio
 
 官网 https://developer.android.google.cn/studio 点击下载安装即可。<br>
