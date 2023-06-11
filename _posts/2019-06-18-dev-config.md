@@ -109,7 +109,7 @@ published: true
 
 ## bash
 
-1. .bash_profile
+1. ~~.bash_profile~~
 
     ```bash
     # tree
@@ -130,6 +130,8 @@ published: true
     export JAVA_HOME=$JDK11
     export PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$JAVA_HOME/jre/lib
     export CLASSPATH=$JAVA_HOME/lib:$JAVA_HOME/lib
+    alias java8="export JAVA_HOME=$JDK8"
+    alias java11="export JAVA_HOME='$JDK11'"
 
     # Android SDK
     export ANDROID_HOME=/Users/bob/Library/Android/sdk
@@ -162,13 +164,71 @@ published: true
     可以在 ~/.zshrc 文件开始添加如下设置：
 
     ```zsh
-    if [ -f ~/.bash_profile ]; then 
+    if [ -f ~/.bash_profile ]; then
         . ~/.bash_profile;
     fi
 
+    # Android Studio
+    ANDROID_STUDIO=/Applications/Android\ Studio.app/Contents
+    export PATH=$PATH:$ANDROID_STUDIO/MacOS:$ANDROID_STUDIO/bin
+
+    # Gradle
+    GRADLE_7=${HOME}/.gradle/wrapper/dists/gradle-7.3.3-bin/6a41zxkdtcxs8rphpq6y0069z/gradle-7.3.3
+    export PATH=$PATH:${GRADLE_7}/bin
+
+    # openJDK
+    JDK8=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home
+    JDK11=/Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home
+    export JAVA_HOME=$JDK11
+    export PATH=$PATH:$JAVA_HOME/bin
+    export CLASSPATH=$JAVA_HOME/lib:$JAVA_HOME/lib
+    alias java8="export JAVA_HOME=$JDK8"
+    alias java11="export JAVA_HOME='$JDK11'"
+
+    # Android SDK
+    export ANDROID_HOME=/Users/bob/Library/Android/sdk
+    export PATH=$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin
+
+    # java keystore
+    export ANDROID_STORE_PWD=xxx
+    export ANDROID_KEY_PWD=yyy
+
+    # rust
+    export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+    export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+    # cargo
+    export PATH="$HOME/.cargo/bin:$PATH"
+
+    # MySQL
+    MySQL_HOME=/usr/local/mysql
+    export PATH=$PATH:$MySQL_HOME/bin:$MySQL_HOME/support-files
+
+    # http://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
+    # PS1="\[\e[1;32m\]\u\[\e[1;33m\]@\[\e[1;34m\]\h\[\e[1;36m\] \W\[\e[0m\]\$ "
     # zsh
     autoload -U colors && colors
     PS1="%{$fg[green]%}%n%{$reset_color%}@%{$fg[blue]%}%m %{$fg[cyan]%}%~ %{$reset_color%}%% "
+
+    alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+    export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+
+    alias screencap="adb exec-out screencap -p > ~/screencap.png"
+
+    alias gerritpush='function _(){ git push origin HEAD:refs/for/$1; };_'
+
+    alias uploadBuglyMapping="${JDK8}/bin/java -jar ~/Downloads/buglyqq-upload-symbol/buglyqq-upload-symbol.jar -appid bec105b4fe -appkey 8dfd6c4c-bf37-40c9-9192-794caff65884 -bundleid com.step2hell.newsmth -version 1.0.0 -platform Android -inputSymbol ~/AndroidProjects/sm-kotlin/app/build/outputs/mapping/release -inputMapping ~/AndroidProjects/sm-kotlin/app/build/outputs/mapping/release"
+
+    # Jekyll ruby
+    export SDKROOT=$(xcrun --show-sdk-path)
+    # ruby
+    export PATH="/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
+    export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+    # python 2.7.18
+    export PATH=$(pyenv root)/shims:$PATH
+
+    # Flutter
+    export PATH="$PATH:${HOME}/Applications/flutter/bin"
     ```
 
 <!-- https://www.cnblogs.com/lazyfang/p/7643621.html -->
