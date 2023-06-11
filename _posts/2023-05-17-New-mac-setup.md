@@ -123,7 +123,9 @@ Home 目录下新建 .gitconfig 文件：
 需要注意的是经常最新版的 Android Studio 都是深坑，如果需要下载历史版本去归档链接：<br>
 https://developer.android.google.cn/studio/archive?hl=zh-cn<br>
 语言设置为中文的话可能无法看到近期一些归档版本，把语言从中文改成英文即可看到：<br>
-https://developer.android.google.cn/studio/archive?hl=en
+[https://developer.android.google.cn/studio/archive?hl=en](https://developer.android.google.cn/studio/archive?hl=en){:target="_blank"}
+
+安装插件 dart、flutter
 
 ## JDK
 
@@ -208,6 +210,39 @@ cat ~/.ssh/id_ed25519.pub
 ```
 
 将显示的 ssh publish key 字符串整个复制，添加到代码托管平台。
+
+## “无法打开应用，因为Apple无法检查其是否包含恶意软件“解决方法
+
+* 方法一，在系统偏好设置-> 安全性与隐私-> 通用中启用该应用
+* 方法二，执行下面命令，禁用新安全检查：
+    ```bash
+    sudo spctl --master-disable
+    ```
+
+## Flutter
+
+1. 下载
+    ```bash
+    git clone https://github.com/flutter/flutter.git -b stable
+    ```
+2. 添加环境变量
+    ```bash
+    echo 'export PATH="$PATH:'$PWD'/flutter/bin"' >> ~/.zshrc
+    ```
+3. 检查
+    ```bash
+    flutter doctor
+    ```
+
+    可能出现的缺失：
+    * Android toolchain - cmdline-tools component is missing，直接在 Android Studio SDKmanager 页面 SDK Tools 标签下面点击安装即可，也可以终端运行命令（需要切到java8）：
+    ```bash
+    sdkmanager --install "cmdline-tools;latest"
+    ```
+    * Android toolchain - Android license status unknown，终端运行命令（需要切到java11）：
+    ```bash
+    flutter doctor --android-licenses
+    ```
 
 ## motd
 
