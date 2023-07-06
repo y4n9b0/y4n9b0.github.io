@@ -56,24 +56,21 @@ fun <T> mutableLazy(initializer: () -> T): MutableLazy<T> = MutableLazy(initiali
 
 ```kotlin
 fun main() {
-    var foo = 1
-    val bar = mutableLazy {
-        2 * foo
+    val foo = mutableLazy {
+        Random.nextInt()
     }
+    val bar by foo
 
-    println("bar=$bar")         // bar=MutableLazy value not initialized yet.
-    println("bar=${bar.value}") // bar=2
+    println("foo=$foo")         // foo=MutableLazy value not initialized yet.
     println("bar=$bar")         // bar=2
-    foo++
-    bar.eval()
+    
+    foo.eval()
     println("bar=$bar")         // bar=4
-    bar.eval()
-    println("bar=$bar")         // bar=4
+
     bar.eval { 9 }
     println("bar=$bar")         // bar=9
-    println("bar=$bar")         // bar=9
+    
     bar.eval()
-    println("bar=$bar")         // bar=4
     println("bar=$bar")         // bar=4
 }
 ```
@@ -85,13 +82,18 @@ fun main() {
 v1 版本的实现有一个小缺陷，就是可以通过直接构造 MutableLazy() 而绕过我们定义的扩展方法 mutableLazy()，为了保持对外 API 的简洁性，也为了与 Lazy 保持一致，我们决定使用接口的方式来改善这一缺陷（你没有办法直接 new 一个接口对吧？）：
 
 ```kotlin
-interface MutableLazy<T> {
+import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
+
+interface MutableLazy<T> : ReadOnlyProperty<Any?, T> {
 
     val value: T
 
     fun isInitialized(): Boolean
 
     fun eval(block: (() -> T)? = null)
+
+    override fun getValue(thisRef: Any?, property: KProperty<*>): T = value
 }
 
 internal class MutableLazyImpl<T>(private val initializer: () -> T) : MutableLazy<T> {
@@ -115,8 +117,6 @@ internal class MutableLazyImpl<T>(private val initializer: () -> T) : MutableLaz
         if (isInitialized()) value.toString() else "MutableLazy value not initialized yet."
 }
 
-operator fun <T> MutableLazy<T>.getValue(thisRef: Any?, property: KProperty<*>): T = value
-
 fun <T> mutableLazy(initializer: () -> T): MutableLazy<T> = MutableLazyImpl(initializer)
 ```
 
@@ -130,13 +130,18 @@ v3 这一版本严格来说算不上优化，更应该是一个选择问题。
 在这一版本中，如果传入的 Function0 block 为 null，我们选择最近一次设置的非空 block 去求值（当然，如果一直没有设置过非空 block，自然是使用 initializer）。
 
 ```kotlin
-interface MutableLazy<T> {
+import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
+
+interface MutableLazy<T> : ReadOnlyProperty<Any?, T> {
 
     val value: T
 
     fun isInitialized(): Boolean
 
     fun eval(block: (() -> T)? = null)
+
+    override fun getValue(thisRef: Any?, property: KProperty<*>): T = value
 }
 
 internal class MutableLazyImpl<T>(private val initializer: () -> T) : MutableLazy<T> {
@@ -162,34 +167,114 @@ internal class MutableLazyImpl<T>(private val initializer: () -> T) : MutableLaz
         if (isInitialized()) value.toString() else "MutableLazy value not initialized yet."
 }
 
-operator fun <T> MutableLazy<T>.getValue(thisRef: Any?, property: KProperty<*>): T = value
-
 fun <T> mutableLazy(initializer: () -> T): MutableLazy<T> = MutableLazyImpl(initializer)
 ```
 
 ```kotlin
 fun main() {
-    var foo = 1
-    val bar = mutableLazy {
-        2 * foo
+    val foo = mutableLazy {
+        Random.nextInt()
     }
+    val bar by foo
 
-    println("bar=$bar")         // bar=MutableLazy value not initialized yet.
-    println("bar=${bar.value}") // bar=2
+    println("foo=$foo")         // foo=MutableLazy value not initialized yet.
     println("bar=$bar")         // bar=2
-    foo++
-    bar.eval()
+    
+    foo.eval()
     println("bar=$bar")         // bar=4
-    bar.eval()
-    println("bar=$bar")         // bar=4
+
     bar.eval { 9 }
     println("bar=$bar")         // bar=9
-    println("bar=$bar")         // bar=9
+    
     bar.eval()
-    // 与 v2 不同，这里使用的是上一次有效的 evaluation 求值
-    println("bar=$bar")         // bar=9
+    // 与 v1、v2 不同，这里使用的是上一次有效的 evaluation 求值
     println("bar=$bar")         // bar=9
 }
 ```
 
 相较而言，个人更喜欢 v2 版本，不容易产生误解。v3 的应用场景，v2 通过显式传递 Function0 入参也可以做到。
+
+## 五、v4 添加失效时间，过期自动重新获取
+
+```kotlin
+import android.os.SystemClock
+import kotlin.properties.ReadOnlyProperty
+import kotlin.reflect.KProperty
+
+interface MutableLazy<T> : ReadOnlyProperty<Any?, T> {
+
+    val value: T
+
+    fun isInitialized(): Boolean
+
+    fun eval(block: (() -> T)? = null)
+
+    override fun getValue(thisRef: Any?, property: KProperty<*>): T = value
+}
+
+internal class MutableLazyImpl<T>(
+    private val expiredTime: Long? = null,
+    private val initializer: () -> T
+) : MutableLazy<T> {
+
+    private var lastEvalTs: Long = 0
+    private var cached: T? = null
+
+    override val value: T
+        get() {
+            if (cached == null
+                || (expiredTime != null && SystemClock.elapsedRealtime() - lastEvalTs > expiredTime)
+            ) {
+                eval()
+            }
+            @Suppress("UNCHECKED_CAST")
+            return cached as T
+        }
+
+    override fun eval(block: (() -> T)?) {
+        lastEvalTs = SystemClock.elapsedRealtime()
+        cached = if (block != null) block() else initializer()
+    }
+
+    override fun isInitialized(): Boolean = cached != null
+
+    override fun toString(): String =
+        if (isInitialized()) value.toString() else "MutableLazy value not initialized yet."
+}
+
+fun <T> mutableLazy(
+    expiredTime: Long? = null,
+    initializer: () -> T
+): MutableLazy<T> = MutableLazyImpl(expiredTime, initializer)
+```
+
+使用上多了一个失效时间参数，单位毫秒（可以不设置，不设置则等同于 v2）：
+
+```kotlin
+fun main() {
+    val foo = mutableLazy(1000) {
+        Random.nextInt()
+    }
+    val bar by foo
+
+    println("bar=$bar")
+    foo.eval()
+    println("bar=$bar")
+    Thread.sleep(2000)
+    println("bar=$bar")
+}
+```
+
+如果不需要主动 `eval`，则可以省去把 MutableLazy 赋值给 foo：
+
+```kotlin
+fun main() {
+    val bar by mutableLazy(1000) {
+        Random.nextInt()
+    }
+
+    println("bar=$bar")
+    Thread.sleep(2000)
+    println("bar=$bar")
+}
+```
