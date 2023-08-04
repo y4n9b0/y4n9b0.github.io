@@ -14,9 +14,12 @@ published: true
 
 无论是大名鼎鼎的 [youtube-dl](https://ytdl-org.github.io/youtube-dl/index.html){:target="_blank"} 还是 [Gihosoft TubeGet](https://www.gihosoft.com/free-youtube-downloader.html){:target="_blank"}，这一类软件都需要安装，而我只是想找个在线网站快速下载而已。
 
-这里推荐 [savefrom](https://en.savefrom.net/){:target="_blank"} 在线下载 youtube 视频，
+这里推荐 [y2mate](https://www.y2mate.com/){:target="_blank"} 或者 [savefrom](https://en.savefrom.net/){:target="_blank"} 在线下载 youtube 视频，
 [DownSub](https://downsub.com/){:target="_blank"} 在线下载字幕，
 再使用 FFmpeg 合成视频和字幕（虽然 FFmpeg 也需要安装，但恰好做多媒体相关的东西，早已安装 FFmpeg）。
+
+**Note**
+建议优先试用 y2mate，可以下载大多数 1080p，而 safefrom 很多时候不支持 1080p 的音频流。
 
 ## FFmpeg 合成视频、字幕
 
