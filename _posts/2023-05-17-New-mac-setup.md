@@ -218,6 +218,12 @@ cat ~/.ssh/id_ed25519.pub
     ```bash
     sudo spctl --master-disable
     ```
+* 方法三，xattr 移除 com.apple.quarantinevia 属性：
+    ```bash
+    sudo xattr -r -d com.apple.quarantine ${file}
+    ```
+    <!-- https://www.cnblogs.com/Flat-White/p/17153264.html -->
+    <!-- https://blog.csdn.net/qq_35624642/article/details/125014122 -->
 
 ## Flutter
 
