@@ -201,7 +201,7 @@ fun largestProductOfPoint(x: Int, y: Int, n: Int, matrix: Array<IntArray>): Long
 
 ## 方向枚举+滑动窗口
 
-可以肯定滑动窗口会带来效率的提升。
+先枚举出所有方向的直线，使用滑动窗口分别对每条直线(数组)求最大乘积，再取所有直线最大乘积的最大值即可。可以肯定滑动窗口会带来效率的提升。
 
 ```kotlin
 fun main() {
@@ -235,57 +235,30 @@ fun main() {
 }
 
 fun largestProductOfMatrix(n: Int, matrix: Array<IntArray>): Long {
-    var max = 0L
+    val lines = mutableListOf<IntArray>()
     repeat(matrix.size) {
-        // 垂直向下
-        max = largestProduct(n, matrix[it]).coerceAtLeast(max)
-
-        // 水平向右
-        max = largestProduct(n, matrix.map { array -> array[it] }.toIntArray()).coerceAtLeast(max)
-
-        // 右对角线，从中间向右上遍历
+        // 横线
+        lines += matrix[it]
+        // 竖线
+        lines += matrix.map { array -> array[it] }.toIntArray()
         matrix.filterIndexed { index, _ ->
             index + it < matrix.size
-        }.takeIf { array ->
-            array.size >= n
-        }?.mapIndexed { index, array ->
-            array[index + it]
-        }?.toIntArray()?.apply {
-            max = largestProduct(n, this).coerceAtLeast(max)
+        }.apply {
+            // 右对角线，从中间向右上遍历
+            lines += mapIndexed { index, array -> array[index + it] }.toIntArray()
+            // 左对角线，从中间向左上遍历
+            lines += mapIndexed { index, array -> array[matrix.size - 1 - it - index] }.toIntArray()
         }
-        // 右对角线，从中间向左下遍历
         matrix.filterIndexed { index, _ ->
             index > it
-        }.takeIf { array ->
-            array.size >= n
-        }?.mapIndexed { index, array ->
-            array[index]
-        }?.toIntArray()?.apply {
-            max = largestProduct(n, this).coerceAtLeast(max)
-        }
-
-        // 左对角线，从中间向左上遍历
-        matrix.filterIndexed { index, _ ->
-            index + it < matrix.size
-        }.takeIf { array ->
-            array.size >= n
-        }?.mapIndexed { index, array ->
-            array[matrix.size - 1 - it - index]
-        }?.toIntArray()?.apply {
-            max = largestProduct(n, this).coerceAtLeast(max)
-        }
-        // 左对角线，从中间向右下遍历
-        matrix.filterIndexed { index, _ ->
-            index > it
-        }.takeIf { array ->
-            array.size >= n
-        }?.mapIndexed { index, array ->
-            array[matrix.size - 1 - index]
-        }?.toIntArray()?.apply {
-            max = largestProduct(n, this).coerceAtLeast(max)
+        }.apply {
+            // 右对角线，从中间向左下遍历
+            lines += mapIndexed { index, array -> array[index] }.toIntArray()
+            // 左对角线，从中间向右下遍历
+            lines += mapIndexed { index, array -> array[matrix.size - 1 - index] }.toIntArray()
         }
     }
-    return max
+    return lines.filter { it.size >= n }.maxOf { largestProduct(n, it) }
 }
 
 // 滑动窗口
@@ -314,8 +287,8 @@ fun largestProduct(n: Int, array: IntArray): Long {
 }
 ```
 
-## 一些小技巧
+## 一点小技巧
 
-扩充数组可以省去很多边界判断，比如 `20*20` 矩阵求最大的 4 个相邻乘积，我们可以把矩阵扩大为 `24*24`，最后 4 行和最后 4 列全部填充 0。
+某些场景下扩充数组可以省去很多边界判断(代码更加简洁明了)，比如 `20*20` 矩阵求最大的 4 个相邻乘积，我们可以把矩阵扩大为 `(20+4)*(20+4)`，最后 4 行和最后 4 列全部填充 0。缺点就是会带来额外的内存开销。
 
 <!-- https://pe-cn.github.io/11/ -->
