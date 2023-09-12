@@ -60,7 +60,8 @@ layout: default
                   {% endif %}
 
                   <ol class="breadcrumb">
-                   <li><span>{{ post.date | date: "%B %e, %Y" }}</span> &raquo; <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
+                    <!-- https://www.ibm.com/docs/en/cmofz/10.1.0?topic=SSQHWE_10.1.0/com.ibm.ondemand.mp.doc/arsa0257.htm -->
+                    <li><span>{{ post.date | date: "%b %d, %Y" }}</span> &raquo; <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
                   </ol>
                   {% if forloop.last %}
                     </ul>
