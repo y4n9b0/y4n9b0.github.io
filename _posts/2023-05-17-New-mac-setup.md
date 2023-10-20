@@ -36,10 +36,15 @@ Homebrew 官网 https://brew.sh/<br>
     ```
 4. 执行 install.sh 脚本安装
     ```bash
-    /bin/bash -c install.sh
+    /bin/bash -c ./install.sh
     ```
     安装过程可能会静默升级，持续时间较长，只要没出错耐心等待即可。安装成功后按 next step 提示添加环境变量。
 
+5. 替换 api 源
+    ```bash
+    echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles/bottles' >> ~/.zprofile
+    echo 'export HOMEBREW_API_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles/api' >> ~/.zprofile
+    ```
 之所以把安装 Homebrew 放在第一位，是因为 Homebrew 可以简便地安装很多其他软件，大家都懂的。当然也不排除有人跟我一样不喜欢用 Homebrew 安装的，Anyway 排第一总是好的。
 
 ## pkg-config
@@ -125,7 +130,8 @@ https://developer.android.google.cn/studio/archive?hl=zh-cn<br>
 语言设置为中文的话可能无法看到近期一些归档版本，把语言从中文改成英文即可看到：<br>
 [https://developer.android.google.cn/studio/archive?hl=en](https://developer.android.google.cn/studio/archive?hl=en){:target="_blank"}
 
-安装插件 dart、flutter
+* 安装 SDK 和 sdk tools（settings -> Languages & Frameworks -> SDK Tools -> 取消勾选 Hide Obsolete Packages）
+* 安装插件 dart、flutter
 
 ## JDK
 
@@ -155,7 +161,7 @@ https://www.azul.com/downloads/?version=java-8-lts&os=macos&architecture=arm-64-
 ## Rosetta
 
 ```bash
-softwareupdate --install-rosetta --agree-to-license
+sudo softwareupdate --install-rosetta --agree-to-license
 ```
 
 ## VS Code
@@ -209,7 +215,7 @@ ssh-keygen -t ed25519 -C "comment" -P "password"
 cat ~/.ssh/id_ed25519.pub 
 ```
 
-将显示的 ssh publish key 字符串整个复制，添加到代码托管平台。
+将显示的 ssh publish key 字符串整个复制，添加到代码托管平台比如 github。
 
 ## “无法打开应用，因为Apple无法检查其是否包含恶意软件“解决方法
 
@@ -250,6 +256,21 @@ cat ~/.ssh/id_ed25519.pub
     flutter doctor --android-licenses
     ```
 
+## smartctl
+
+查看 mac 硬盘读写工具
+
+```bash
+brew install smartmontools
+```
+
+```bash
+smartctl -a disk0
+```
+
 ## motd
 
 锦上添花的小玩意儿，不懂的可以无视。
+
+<!-- https://zhuanlan.zhihu.com/p/610820273 -->
+<!-- https://blog.csdn.net/weixin_41984936/article/details/130809661 -->
