@@ -19,9 +19,9 @@ interface Car {
     companion object {
         operator fun invoke(brand: Brand): Car {
             return when (brand) {
-                is Brand.Audi -> Audi()
-                is Brand.Bmw -> Bmw()
-                is Brand.Benz -> Benz()
+                Brand.Audi -> Audi()
+                Brand.Bmw -> Bmw()
+                Brand.Benz -> Benz()
             }
         }
     }
