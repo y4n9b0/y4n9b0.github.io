@@ -268,6 +268,15 @@ brew install smartmontools
 smartctl -a disk0
 ```
 
+## 修改电脑名字
+
+```bash
+# terminal 显示名字
+sudo scutil --set HostName xxx
+# 共享显示名字，比如隔空传送
+sudo scutil --set LocalHostName xxx
+```
+
 ## motd
 
 锦上添花的小玩意儿，不懂的可以无视。
