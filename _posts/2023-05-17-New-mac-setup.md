@@ -277,6 +277,12 @@ sudo scutil --set HostName xxx
 sudo scutil --set LocalHostName xxx
 ```
 
+## cloc 统计代码行数
+
+```bash
+brew install cloc
+```
+
 ## motd
 
 锦上添花的小玩意儿，不懂的可以无视。
