@@ -151,7 +151,7 @@ fun eulerSieve(n: Int): Int {
             primes[count++] = i
         }
         var j = 0
-        while (i * primes[j] < upper) {
+        while (i * primes[j] <= upper) {
             flags[i * primes[j]] = false
             if (i.mod(primes[j]) == 0) break
             j++
@@ -168,6 +168,7 @@ fun primeCountingUpper(n: Int): Int {
 <!-- https://pe-cn.github.io/7/ -->
 <!-- https://zhuanlan.zhihu.com/p/542171819 -->
 <!-- https://zhuanlan.zhihu.com/p/345488859 -->
+<!-- https://zhuanlan.zhihu.com/p/509771255 -->
 <!-- https://blog.csdn.net/lcx0128/article/details/128408977 -->
 <!-- https://baike.baidu.com/item/%E5%AD%AA%E7%94%9F%E7%B4%A0%E6%95%B0%E7%8C%9C%E6%83%B3/4937896 -->
 <!-- https://www.zhihu.com/question/512360756/answer/2318498459 -->
