@@ -99,6 +99,7 @@ published: true
         encoding = utf-8
     [core]
         quotepath = false
+        ignorecase = false
     [color]
         ui = auto
     [pull]
