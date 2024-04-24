@@ -31,6 +31,17 @@ float Q_rsqrt( float number )
 }
 ```
 
+## IEEE 754
+
+* 科学计数法
+* normalised numbers
+* denormalised numbers
+* NaN
+* 0 & -0
+
+由 IEEE 754 可知 float 的 long representation 为 $$(E*2^{23} + M)$$
+
+
 ## 牛顿迭代
 
 牛顿迭代公式：
@@ -58,17 +69,14 @@ $$
 \end{aligned}
 $$
 
+泰勒级数展开式：
 
-## IEEE 754
+$$ f(x) = f(x_0) + f^{\prime}(x_0)(x-x_0) + \tfrac{f^{\prime\prime}(x_0)(x-x_0)^2}{2!} + ··· +  \tfrac{f^{(n)}(x_0)(x-x_0)^n}{n!} + R_n(x) $$ 
 
-科学计数法
-
-normalised numbers
-denormalised numbers
-NaN
-0 & -0
-
-由 IEEE 754 可知 float 的 long representation 为 $$(E*2^{23} + M)$$
+牛顿迭代提高精度的几种方式：
+1. 选取一个合适的初始值 $$x_0$$
+2. 增加迭代次数
+3. 多阶迭代
 
 ## 推导
 
@@ -109,45 +117,6 @@ $$
 $$
 
 
-$\log_2 10$
-
-$$\lg_2 10$$
-
-$$\lg 10$$
-
-$$lg 10$$
-
-$$\ln 10$$
-
-$$ln 10$$
-
-$$\log_2 10$$
-
-$$log_2 10$$
-
-$\sqrt{3x-1}+(1+x)^2$
-
-$$\sqrt3$$
-
-$$\sqrt{3}$$
-
-$$\sqrt{3x-1}$$
-
-$$\sqrt{3x-1}+(1+x)^2$$
-
-$10^{10}$
-
-$\frac{4n^3-6n^2-10n-2k^3-3k^2+8k+12kn+c}{12}$
-
-$$\frac{4n^3-6n^2-10n-2k^3-3k^2+8k+12kn+c}{12}$$
-
-$$\frac{4}{12}$$
-
-$$\tfrac{4}{12}$$
-
-$$\dfrac{4}{12}$$
-
-$$\cfrac{4}{12}$$
 
 ## 总结
 
