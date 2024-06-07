@@ -91,7 +91,8 @@ fun solution(n: Int): Long {
 }
 
 fun lcm(m: Long, n: Long): Long {
-    return m.times(n).div(gcd(m, n))
+    // 先除后乘，防止溢出
+    return m.div(gcd(m, n)).times(n)
 }
 
 fun gcd(m: Long, n: Long): Long {
@@ -123,7 +124,7 @@ fun solution(n: Int): Long {
 }
 
 fun lcm(m: Long, n: Long): Long {
-    return m.times(n).div(gcd(m, n))
+    return m.div(gcd(m, n)).times(n)
 }
 
 fun gcd(m: Long, n: Long): Long {
