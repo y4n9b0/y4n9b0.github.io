@@ -10,6 +10,8 @@ published: true
 * content
 {:toc}
 
+## LCS
+
 [LeetCode 1143](https://leetcode.com/problems/longest-common-subsequence/){:target="_blank"}
 
 Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.
@@ -73,10 +75,39 @@ fun longestCommonSubsequence(text1: String, text2: String): Int {
             val V = X - ((L[j] shl 1) or (b1 + b2))
             b1 = c
             b2 = if (V > X) 1UL else 0UL
-            L[j] = X and V.inv()
+            L[j] = X and V.inv() // 另一种方式 L[j] = V.xor(X).and(X)
         }
     }
     return L.fold(0) { acc, i -> acc + i.countOneBits() }
+}
+```
+
+## LCS of three strings
+
+Given two strings text1 text2 and text3, return the length of their longest common subsequence. If there is no common subsequence, return 0.
+
+```kotlin
+fun longestCommonSubsequence(text1: String, text2: String, text3: String): Int {
+    val length1 = text1.length
+    val length2 = text2.length
+    val length3 = text3.length
+    val chars1 = text1.toCharArray()
+    val chars2 = text2.toCharArray()
+    val chars3 = text2.toCharArray()
+    //  dp[i][j][k] 表示 text1 的前 i 个元素、 text2 的前 j 个元素与 text3 的前 k 个元素的最长公共子序列的长度
+    val dp = Array(length1 + 1) { Array(length2 + 1) { IntArray(length3 + 1) } }
+    chars1.forEachIndexed { i, c1 ->
+        chars2.forEachIndexed { j, c2 ->
+            chars3.forEachIndexed { k, c3 ->
+                dp[i + 1][j + 1][k + 1] = if (c1 == c2 && c2 == c3) {
+                    dp[i][j][k] + 1
+                } else {
+                    maxOf(dp[i][j + 1][k + 1], dp[i + 1][j][k + 1], dp[i + 1][j + 1][k])
+                }
+            }
+        }
+    }
+    return dp[length1][length2][length3]
 }
 ```
 
@@ -91,3 +122,4 @@ fun longestCommonSubsequence(text1: String, text2: String): Int {
 <!-- https://wenku.baidu.com/view/ed99e4f77c1cfad6195fa776.html?_wkts_=1719027557244&needWelcomeRecommand=1 -->
 <!-- https://users.monash.edu/~lloyd/tildeStrings/Alignment/86.IPL/ -->
 <!-- https://www.cnblogs.com/-Wallace-/p/bit-lcs.html -->
+<!-- https://www.geeksforgeeks.org/lcs-longest-common-subsequence-three-strings/ -->
