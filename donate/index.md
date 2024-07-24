@@ -1,47 +1,26 @@
 ---
 layout: post
-title: 打赏
-header: 打赏
+title: 打钱
+header: 打钱
 ---
 
-您的支持是作者写作最大的动力！
-------------------------------
-<hr>
+`微信⤵️`
 
-如果您喜欢这个博客，读后觉得收获很大...
-
-如果在你开发或学习过程中本博客帮助到了你...
-
-你可以对本博客[小额赞助]({{ '/donate/method' | prepend: site.baseurl }})一下，让我有动力继续写出更高质量的文章。
-
-点击上面小额赞助即可呦！
-<br>
-
->声明: 此博客空间用于分享作者个人的一些技术相关， 此网站基于[MIT开源协议](https://github.com/y4n9b0/y4n9b0.github.io/blob/master/LICENSE)所有内容完全免费，请放心使用。
-
-<hr>
-
-赞助方式一：`支付宝二维码付款`
-------------------------------
-
-<hr>
-您可以选择手机支付宝扫一扫
-
-<img src="{{ '/styles/images/alipay.jpg' | prepend: site.baseurl }}" alt="支付宝二维码付款给Freud" width="310" />
+<img src="{{ '/styles/images/wechatpay.jpg' | prepend: site.baseurl }}" title="朕 秦始皇☺" alt="微信打钱给秦始皇" width="200" height="200" />
 
 <br>
-<br>
 
-赞助方式二：`微信扫一扫`
-------------------------------
+`支付宝⤵`
 
-<hr>
-您可以选择手机微信扫一扫
+<img src="{{ '/styles/images/alipay.jpg' | prepend: site.baseurl }}" title="打钱🤬" alt="支付宝打钱给秦始皇" width="200" height="200" />
 
-![微信二维码付款给Freud]({{ '/styles/images/wechatpay.jpg' | prepend: site.baseurl }})
-
-<br>
-<br>
-
-<hr>
-
+<!-- <table style="border-collapse: collapse; width: 100%;">
+    <tr>
+        <th style="border: none; text-align: center;">微信⤵️</th>
+        <th style="border: none; text-align: center;">支付宝⤵</th>
+    </tr>
+    <tr>
+        <td style="border: none; text-align: center;"><img src="{{ '/styles/images/wechatpay.jpg' | prepend: site.baseurl }}" title="朕 秦始皇☺" alt="微信打钱给秦始皇" width="200" height="200" /></td>
+        <td style="border: none; text-align: center;"><img src="{{ '/styles/images/alipay.jpg' | prepend: site.baseurl }}" title="打钱🤬" alt="支付宝打钱给秦始皇" width="200" height="200" /></td>
+    </tr>
+</table> -->
