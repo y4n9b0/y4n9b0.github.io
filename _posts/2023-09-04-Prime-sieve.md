@@ -80,9 +80,10 @@ published: true
 
 ```kotlin
 fun isPrime(n: Long): Boolean {
-    val upper = ceil(sqrt(n.toDouble())).toLong()
-    (2..upper).forEach {
-        if (n.mod(it) == 0L) return false
+    if (n < 2) return false
+    val upper = sqrt(n.toDouble()).toLong()
+    for (i in 2..upper) {
+        if (n.mod(i) == 0L) return false
     }
     return true
 }
