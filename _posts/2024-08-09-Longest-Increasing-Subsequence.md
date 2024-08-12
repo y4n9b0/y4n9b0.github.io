@@ -16,7 +16,7 @@ published: true
 
 Given an integer array nums, return the length of the longest strictly increasing subsequence.
 
-**动态规划**
+**动态规划** 复杂度 $$O(n^2)$$
 
 ```kotlin
 class Solution {
@@ -35,9 +35,7 @@ class Solution {
 }
 ```
 
-复杂度 $$O(n^2)$$
-
-**贪心 + 二分查找**
+**贪心 + 二分查找** 复杂度 $$O(n\log{n})$$
 
 ```kotlin
 class Solution {
@@ -53,9 +51,40 @@ class Solution {
 }
 ```
 
-复杂度 $$O(n*\log{_2}{n})$$
+**动态规划 + 树状数组** 复杂度 $$O(n\log{n})$$
 
-**动态规划优化版**
+```kotlin
+class Solution {
+    fun lengthOfLIS(nums: IntArray): Int {
+        var ans = 0
+        val dp = IntArray(nums.size + 1) { 0 }
+        nums.mapIndexed { i, n ->
+            Pair(i + 1, n)
+        }.sortedWith { (i1, n1), (i2, n2) ->
+            if (n1 == n2) i2 - i1 else n1 - n2
+        }.forEach { (index, num) ->
+            var max = 0
+            var i = index
+            while (i > 0) {
+                max = max.coerceAtLeast(dp[i])
+                i -= i.and(-i)
+            }
+            max++
+            i = index
+            while (i <= nums.size) {
+                dp[i] = dp[i].coerceAtLeast(max)
+                i += i.and(-i)
+            }
+            ans = ans.coerceAtLeast(max)
+        }
+        return ans
+    }
+}
+```
+
+## 求 LIS 个数
+
+[LeetCode 673](https://leetcode.com/problems/number-of-longest-increasing-subsequence/description/){:target="_blank"}
 
 ```kotlin
 // todo
@@ -69,6 +98,9 @@ class Solution {
 // todo
 ```
 
+<!-- https://writings.sh/post/longest-increasing-subsequence-revisited -->
+<!-- https://writings.sh/post/find-number-of-lis -->
+<!-- https://writings.sh/post/binary-indexed-tree -->
 <!-- https://blog.csdn.net/lxt_Lucia/article/details/81206439 -->
 <!-- https://leetcode.com/problems/longest-increasing-subsequence/solutions/1326308/c-python-dp-binary-search-bit-segment-tree-solutions-picture-explain-o-nlogn/ -->
 <!-- https://blog.csdn.net/lxt_Lucia/article/details/89228550 -->
