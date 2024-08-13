@@ -40,44 +40,94 @@ class Solution {
 ```kotlin
 class Solution {
     fun lengthOfLIS(nums: IntArray): Int {
-        val sub = mutableListOf<Int>()
-        for (i in nums.indices) {
-            var index = sub.binarySearch(nums[i], 0, sub.size)
+        val sub = IntArray(nums.size)
+        var length = 0
+        for (n in nums) {
+            var index = sub.binarySearch(n, 0, length)
             if (index < 0) index = -(index + 1)
-            if (index == sub.size) sub.add(nums[i]) else sub[index] = nums[i]
+            sub[index] = n
+            if (index == length) length++
         }
-        return sub.size
+        return length
     }
 }
 ```
 
 **动态规划 + 树状数组** 复杂度 $$O(n\log{n})$$
 
+方案一：
 ```kotlin
+class BIT(size: Int) {
+    private val bit = IntArray(size + 1)
+
+    fun get(index: Int): Int {
+        var max = 0
+        var i = index
+        while (i > 0) {
+            max = max.coerceAtLeast(bit[i])
+            i -= i.and(-i)
+        }
+        return max
+    }
+
+    fun update(index: Int, value: Int) {
+        var i = index
+        while (i < bit.size) {
+            bit[i] = bit[i].coerceAtLeast(value)
+            i += i.and(-i)
+        }
+    }
+}
+
 class Solution {
     fun lengthOfLIS(nums: IntArray): Int {
-        var ans = 0
-        val dp = IntArray(nums.size + 1) { 0 }
+        val bit = BIT(nums.size)
         nums.mapIndexed { i, n ->
             Pair(i + 1, n)
         }.sortedWith { (i1, n1), (i2, n2) ->
             if (n1 == n2) i2 - i1 else n1 - n2
         }.forEach { (index, num) ->
-            var max = 0
-            var i = index
-            while (i > 0) {
-                max = max.coerceAtLeast(dp[i])
-                i -= i.and(-i)
-            }
-            max++
-            i = index
-            while (i <= nums.size) {
-                dp[i] = dp[i].coerceAtLeast(max)
-                i += i.and(-i)
-            }
-            ans = ans.coerceAtLeast(max)
+            var max = bit.get(index - 1)
+            bit.update(index, ++max)
         }
-        return ans
+        return bit.get(nums.size)
+    }
+}
+```
+
+方案二：
+```kotlin
+class BIT(size: Int) {
+    private val bit = IntArray(size + 1)
+
+    fun get(index: Int): Int {
+        var max = 0
+        var i = index
+        while (i > 0) {
+            max = max.coerceAtLeast(bit[i])
+            i -= i.and(-i)
+        }
+        return max
+    }
+
+    fun update(index: Int, value: Int) {
+        var i = index
+        while (i < bit.size) {
+            bit[i] = bit[i].coerceAtLeast(value)
+            i += i.and(-i)
+        }
+    }
+}
+
+class Solution {
+    fun lengthOfLIS(nums: IntArray): Int {
+        val min = nums.min()
+        val max = nums.max()
+        val bit = BIT(max - min + 1)
+        for (n in nums) {
+            bit.update(n - min + 1, bit.get(n - min) + 1)
+        }
+        return bit.get(max - min + 1)
     }
 }
 ```
