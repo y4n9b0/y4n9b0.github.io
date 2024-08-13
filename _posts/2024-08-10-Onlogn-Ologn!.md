@@ -59,13 +59,13 @@ $$
 
 $$ \log(n!) \geq {\frac{n}{2}}\log{\frac{n}{2}} = {\frac{n}{2}}(\log{n} - 1) $$
 
-$$ ⇒ O(\log(n!)) \geq O({\frac{n}{2}}(\log{n} - 1)) = O(n\log{n}) $$
+$$ \Rightarrow O(\log(n!)) \geq O({\frac{n}{2}}(\log{n} - 1)) = O(n\log{n}) $$
 
 又
 
 $$ \log(n!) \leq \log(n^n) = n\log{n} $$
 
-$$ ⇒ O(\log(n!)) \leq O(n\log{n}) $$
+$$ \Rightarrow O(\log(n!)) \leq O(n\log{n}) $$
 
 故
 
