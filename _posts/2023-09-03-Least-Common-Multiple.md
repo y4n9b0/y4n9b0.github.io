@@ -128,6 +128,8 @@ fun lcm(m: Long, n: Long): Long {
 }
 
 fun gcd(m: Long, n: Long): Long {
+    if (n == 0L) return m
+    if (m == 0L) return n
     if (m == n) return m
     return if ((m.and(n).and(1L)) == 0L) {
         // 此条件包含三种情况，巧用位运算书写成统一的代码
