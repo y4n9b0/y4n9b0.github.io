@@ -98,6 +98,7 @@ published: true
     [gui]
         encoding = utf-8
     [core]
+        editor = vim
         quotepath = false
         ignorecase = false
     [color]

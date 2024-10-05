@@ -84,29 +84,31 @@ sudo make install
 Home 目录下新建 .gitconfig 文件：
 
 ```
- [user]
-     name = ᵇᵒ
-     email = 40080007@qq.com
- [alias]
-     co = checkout
-     br = branch
-     ci = commit
-     st = status
-     rb = rebase
-     af = !git add -A && git commit --amend --no-edit && git push --force && :
-     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
- [push]
-     default = simple
- [gui]
-     encoding = utf-8
- [core]
-     quotepath = false
- [color]
-     ui = auto
- [pull]
-     rebase = true
- [rebase]
-     autoStash = true
+[user]
+    name = ᵇᵒ
+    email = 40080007@qq.com
+[alias]
+    co = checkout
+    br = branch
+    ci = commit
+    st = status
+    rb = rebase
+    af = !git add -A && git commit --amend --no-edit && git push --force && :
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[push]
+    default = simple
+[gui]
+    encoding = utf-8
+[core]
+    editor = vim
+    quotepath = false
+    ignorecase = false
+[color]
+    ui = auto
+[pull]
+    rebase = true
+[rebase]
+    autoStash = true
 ```
 
 ## Chrome
