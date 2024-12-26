@@ -115,7 +115,7 @@ published: true
 
     ```bash
     # tree
-    alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+    alias tree='function _(){ find ${1:-.} -print | sed -e "s;[^/]*/;|____;g;s;____|; |;g" };_'
 
     # Android Studio
     ANDROID_STUDIO=/Applications/Android\ Studio.app/Contents
@@ -169,6 +169,8 @@ published: true
     if [ -f ~/.bash_profile ]; then
         . ~/.bash_profile;
     fi
+
+    alias tree='function _(){ find ${1:-.} -print | sed -e "s;[^/]*/;|____;g;s;____|; |;g" };_'
 
     # Android Studio
     ANDROID_STUDIO=/Applications/Android\ Studio.app/Contents
