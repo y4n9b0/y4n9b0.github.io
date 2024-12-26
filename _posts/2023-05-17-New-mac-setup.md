@@ -274,9 +274,9 @@ smartctl -a disk0
 
 ```bash
 # terminal 显示名字
-sudo scutil --set HostName xxx
-# 共享显示名字，比如隔空传送
 sudo scutil --set LocalHostName xxx
+# 共享显示名字，比如隔空传送
+sudo scutil --set ComputerName xxx
 ```
 
 ## cloc 统计代码行数
