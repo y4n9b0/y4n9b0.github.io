@@ -111,6 +111,117 @@ fun longestCommonSubsequence(text1: String, text2: String, text3: String): Int {
 }
 ```
 
+## 求 LCS 的具体字符串
+
+1. 通过动态规划求解 LCS 的长度。
+2. 回溯 dp 数组，找出 实际的最长公共子序列。回溯过程的核心思想是：
+   * 如果 text1[i-1] == text2[j-1]，则该字符是公共子序列的一部分，加入结果中。
+   * 如果 text1[i-1] != text2[j-1]，则选择 dp[i-1][j] 或 dp[i][j-1] 较大的一个，继续回溯。
+
+```kotlin
+fun longestCommonSubsequence(text1: String, text2: String): String {
+    val length1 = text1.length
+    val length2 = text2.length
+    val chars1 = text1.toCharArray()
+    val chars2 = text2.toCharArray()
+    //  dp[i][j] 表示 text1 的前 i 个元素与 text2 的前 j 个元素的最长公共子序列的长度
+    val dp = Array(length1 + 1) { IntArray(length2 + 1) }
+    chars1.forEachIndexed { i, c1 ->
+        chars2.forEachIndexed { j, c2 ->
+            dp[i + 1][j + 1] = if (c1 == c2) dp[i][j] + 1 else dp[i][j + 1].coerceAtLeast(dp[i + 1][j])
+        }
+    }
+
+    // 回溯
+    val builder = StringBuilder()
+    var i = length1
+    var j = length2
+    while (i > 0 && j > 0) {
+        if (chars1[i - 1] == chars2[j - 1]) {
+            builder.append(chars1[i - 1])
+            i--
+            j--
+        } else if (dp[i - 1][j] > dp[i][j - 1]) {
+            i-- // 向上走
+        } else {
+            j-- // 向左走
+        }
+    }
+    return builder.reverse().toString()
+}
+```
+
+## Shortest Common Supersequence 
+
+[LeetCode 1092](https://leetcode.com/problems/shortest-common-supersequence/){:target="_blank"}
+
+Given two strings str1 and str2, return the shortest string that has both str1 and str2 as subsequences. If there are multiple valid strings, return any of them.
+
+A string s is a subsequence of string t if deleting some number of characters from t (possibly 0) results in the string s.
+
+**Example 1:**
+
+```
+Input: str1 = "abac", str2 = "cab"
+Output: "cabac"
+Explanation: 
+str1 = "abac" is a subsequence of "cabac" because we can delete the first "c".
+str2 = "cab" is a subsequence of "cabac" because we can delete the last "ac".
+The answer provided is the shortest such string that satisfies these properties.
+```
+
+**Example 2:**
+
+```
+Input: str1 = "aaaaaaaa", str2 = "aaaaaaaa"
+Output: "aaaaaaaa"
+```
+
+**Constraints:**
+
+* 1 <= str1.length, str2.length <= 1000
+* str1 and str2 consist of lowercase English letters.
+
+**Solution:**
+
+求最短公共超序列，其实是最长公共子序列字符串的一个变种：
+
+```kotlin
+fun shortestCommonSupersequence(str1: String, str2: String): String {
+    // longest common subsequence
+    val m = str1.length
+    val n = str2.length
+    val chars1 = str1.toCharArray()
+    val chars2 = str2.toCharArray()
+    //  dp[i][j] 表示 str1 的前 i 个元素与 str2 的前 j 个元素的最长公共子序列的长度
+    val dp = Array(m + 1) { IntArray(n + 1) }
+    chars1.forEachIndexed { i, c1 ->
+        chars2.forEachIndexed { j, c2 ->
+            dp[i + 1][j + 1] = if (c1 == c2) dp[i][j] + 1 else dp[i][j + 1].coerceAtLeast(dp[i + 1][j])
+        }
+    }
+
+    // 回溯
+    val builder = StringBuilder()
+    var i = m
+    var j = n
+    while (i > 0 && j > 0) {
+        if (chars1[i - 1] == chars2[j - 1]) {
+            builder.append(chars1[i - 1])
+            i--
+            j--
+        } else if (dp[i - 1][j] > dp[i][j - 1]) {
+            builder.append(chars1[--i]) // 向上走
+        } else {
+            builder.append(chars2[--j]) // 向左走
+        }
+    }
+    while (i > 0) builder.append(chars1[--i])
+    while (j > 0) builder.append(chars2[--j])
+    return builder.reverse().toString()
+}
+```
+
 **Footnote**
 
 [^1]: [https://oi-wiki.org/dp/basic/#最长公共子序列](https://oi-wiki.org/dp/basic/#%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97){:target="_blank"}
