@@ -114,7 +114,7 @@ fun eratosthenesSieve(n: Int): Int {
     val floor = floor(sqrt(upper.toDouble())).toInt()
     (2..floor).forEach { i ->
         if (!flags[i]) return@forEach  // 优化运行效率，忽略已经标记过
-        (i * 2 until upper step i).forEach {
+        (i * i until upper step i).forEach {
             flags[it] = false
         }
     }
