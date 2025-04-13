@@ -73,11 +73,15 @@ $$ F_n = \tfrac{1}{\sqrt{5}}\Big [(\tfrac{1 + \sqrt{5}}{2})^n - (\tfrac{1 - \sqr
 ```kotlin
 import kotlin.system.measureTimeMillis
 
-class Matrix(vararg elements: IntArray) {
-    private val arr: Array<out IntArray> = elements.map { it.copyOf() }.toTypedArray()
-
+class Matrix(private val arr: Array<out IntArray>) {
     val rows = arr.size
     val cols = if (arr.isNotEmpty()) arr[0].size else 0
+
+    constructor(row: Int, init: (Int) -> IntArray) : this(Array(row, init))
+
+    constructor(row: Int, col: Int, init: (Int, Int) -> Int = { _, _ -> 0 }) : this(
+        Array(row) { r -> IntArray(col) { c -> init(r, c) } }
+    )
 
     fun set(row: Int, col: Int, value: Int) {
         require(row in 0..<rows && col in 0..<cols) { "Index out of bounds: ($row, $col)" }
@@ -91,7 +95,7 @@ class Matrix(vararg elements: IntArray) {
 
     operator fun times(m: Matrix): Matrix {
         require(cols == m.rows) { "Matrix dimensions do not match for multiplication" }
-        val product = Matrix(*Array(rows) { IntArray(m.cols) })
+        val product = Matrix(rows) { IntArray(m.cols) }
         repeat(rows) { r ->
             repeat(m.cols) { c ->
                 product.set(r, c, (0..<cols).fold(0) { acc, i -> acc + this.get(r, i) * m.get(i, c) })
@@ -101,27 +105,52 @@ class Matrix(vararg elements: IntArray) {
     }
 }
 
-fun power(matrix: Matrix, exp: Int): Matrix {
+// fun matrixOf(vararg elements: IntArray) = Matrix(elements.map { it.copyOf() }.toTypedArray()) // deep copy
+fun matrixOf(vararg elements: IntArray) = Matrix(elements)
+
+// n 阶单位矩阵
+fun identityMatrix(n: Int): Matrix = Matrix(n, n) { r, c -> if (r == c) 1 else 0 }
+
+fun fastExponentiationRec(matrix: Matrix, exp: Int): Matrix {
     if (exp == 1) return matrix
-    val half = power(matrix, exp / 2)
+    val half = fastExponentiationRec(matrix, exp / 2)
     return if (exp % 2 == 0) half * half else half * half * matrix
+}
+
+fun fastExponentiation(matrix: Matrix, exp: Int): Matrix {
+    var ret = identityMatrix(matrix.cols)
+    var mul = matrix
+    var n = exp
+    while (n > 0) {
+        if (n % 2 != 0) ret *= mul
+        mul *= mul
+        n /= 2
+    }
+    return ret
 }
 
 fun fib(n: Int): Int {
     if (n < 2) return n
-    val init = Matrix(intArrayOf(1), intArrayOf(0))
-    val eigen = Matrix(intArrayOf(1, 1), intArrayOf(1, 0))
-    // return ((2..<n).fold(eigen) { matrix, _ -> matrix * eigen } * init).get(0, 0)
-    return (power(eigen, n - 1) * init).get(0, 0)
+    val init = matrixOf(intArrayOf(1), intArrayOf(0))
+    val eigen = matrixOf(intArrayOf(1, 1), intArrayOf(1, 0))
+    // return ((2..<n).fold(eigen) { matrix, _ -> matrix * eigen } * init).get(0, 0) // no fast exponentiation
+    return (fastExponentiation(eigen, n - 1) * init).get(0, 0)
 }
 
 fun main() {
-    val n = 1_000_000
-    val time = measureTimeMillis {
-        val result = fib(n)
-        println("Fibonacci($n) = $result")
-    }
-    println("Computation time: $time ms")
+    testCorrection(20)
+    testTime(1_000_000)
+}
+
+fun testCorrection(n: Int) {
+    // 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144
+    println((1..n).map(::fib).joinToString())
+}
+
+fun testTime(n: Int) {
+    var fn: Int
+    val time = measureTimeMillis { fn = fib(n) }
+    println("Fibonacci($n) = $fn, time: $time ms")
 }
 ```
 
