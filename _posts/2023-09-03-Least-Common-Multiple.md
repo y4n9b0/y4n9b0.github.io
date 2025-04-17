@@ -132,13 +132,15 @@ fun gcd(m: Long, n: Long): Long {
     if (m == 0L) return n
     if (m == n) return m
     return if ((m.and(n).and(1L)) == 0L) {
-        // 此条件包含三种情况，巧用位运算书写成统一的代码
-        // m 和 n 均为偶数，则 gcd(m, n) = 2 * gcd(m/2, n/2)
-        // m 为偶数，n 为奇数，则 gcd(m, n) = gcd(m/2, n)
-        // m 为奇数，n 为偶数，则 gcd(m, n) = gcd(m, n/2)
-        val shiftRightM = (m + 1).and(1).toInt()
-        val shiftRightN = (n + 1).and(1).toInt()
-        gcd(m.shr(shiftRightM), n.shr(shiftRightN)).shl(shiftRightM.and(shiftRightN))
+        /**
+         * 此条件包含三种情况，巧用位运算书写成统一的代码：
+         * m 和 n 均为偶数，则 gcd(m, n) = 2 * gcd(m/2, n/2)
+         * m 为偶数，n 为奇数，则 gcd(m, n) = gcd(m/2, n)
+         * m 为奇数，n 为偶数，则 gcd(m, n) = gcd(m, n/2)
+         */
+        val shrM = (m + 1).and(1).toInt()
+        val shrN = (n + 1).and(1).toInt()
+        gcd(m.shr(shrM), n.shr(shrN)).shl(shrM.and(shrN))
     } else {
         // m 和 n 均为奇数，相减将其变为一个偶数和一个奇数的情况
         gcd(abs(m - n), min(m, n))
