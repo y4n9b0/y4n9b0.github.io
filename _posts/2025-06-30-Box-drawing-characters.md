@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Box Drawing 字符
+title: 制表符
 date: 2025-06-30 19:55:00 +0800
 categories: unicode
 tags: unicode
@@ -10,7 +10,7 @@ published: true
 * content
 {:toc}
 
-Unicode 中专门有一个区段叫做 Box Drawing（U+2500 至 U+257F）用于绘制框架线条。
+Unicode 中专门有一个区段叫做制表符（Box-drawing characters U+2500 至 U+257F）用于绘制框架线条。
 
 **单线字符**
 
@@ -45,3 +45,5 @@ Unicode 中专门有一个区段叫做 Box Drawing（U+2500 至 U+257F）用于�
 | 十字交叉    |     ╬     |    U+256C   |
 
 [在线查看所有 Box Drawing 字符](https://unicode-table.com/en/blocks/box-drawing/){:target="_blank"}
+
+<!-- https://zh.wikipedia.org/zh-cn/%E8%A3%BD%E8%A1%A8%E7%AC%A6_(Unicode%E5%8D%80%E6%AE%B5) -->
