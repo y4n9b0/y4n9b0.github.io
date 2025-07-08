@@ -12,12 +12,12 @@ published: true
 
 ```kotlin
 /**
- * stable sorting & thread unsafe
+ * fixed capacity & stable sorting & thread unsafe
  */
 class PriorityDoublyLinkedList<T>(
-    private val capacity: Int = 100,
+    private val capacity: Int = 9527,
     private val comparator: Comparator<T>
-) {
+) : Iterable<T> {
 
     private var head: Node<T>? = null
     private var tail: Node<T>? = null
@@ -31,236 +31,250 @@ class PriorityDoublyLinkedList<T>(
     var size: Int = 0
         private set
 
-    fun add(value: T) {
-        val node = obtainNode(value)
-        var curr = head
-        while (curr != null && comparator.compare(curr.value, node.value) <= 0) {
-            curr = curr.next
+    fun add(element: T) {
+        val insert = obtainNode(element)
+        var node = head
+        while (node != null && comparator.compare(node.element, insert.element) <= 0) {
+            node = node.next
         }
-        when (curr) {
+        when (node) {
             head -> {
-                node.next = head
-                head?.prev = node
-                head = node
-                if (tail == null) tail = node
+                insert.next = head
+                head?.prev = insert
+                head = insert
+                if (tail == null) tail = insert
             }
 
             null -> {
-                tail?.next = node
-                node.prev = tail
-                tail = node
+                tail?.next = insert
+                insert.prev = tail
+                tail = insert
             }
 
             else -> {
-                curr.prev?.next = node
-                node.prev = curr.prev
-                node.next = curr
-                curr.prev = node
+                node.prev?.next = insert
+                insert.prev = node.prev
+                insert.next = node
+                node.prev = insert
             }
         }
         size++
-        if (size > capacity) pollTail()
+        if (size > capacity) removeTail()
     }
 
-    fun addAll(list: List<T>) = list.forEach(::add)
+    fun addAll(elements: Collection<T>) = elements.forEach(::add)
 
-    operator fun plus(value: T): PriorityDoublyLinkedList<T> = apply {
-        add(value)
+    operator fun plusAssign(element: T) = add(element)
+
+    operator fun plusAssign(elements: Collection<T>) = addAll(elements)
+
+    fun headOrNull(): T? = head?.element
+
+    fun tailOrNull(): T? = tail?.element
+
+    fun firstOrNull(predicate: (T) -> Boolean): T? {
+        var node = head
+        while (node != null && !predicate(node.element)) node = node.next
+        return node?.element
     }
 
-    operator fun plus(values: Collection<T>): PriorityDoublyLinkedList<T> = apply {
-        addAll(values.toList())
+    fun lastOrNull(predicate: (T) -> Boolean): T? {
+        var node = tail
+        while (node != null && !predicate(node.element)) node = node.prev
+        return node?.element
     }
 
-    fun peekHead(): T? = head?.value
-
-    fun peekTail(): T? = tail?.value
-
-    fun pollHead(): T? {
+    fun removeHead(): T? {
         val node = head ?: return null
         head = node.next?.apply { prev = null }
         if (tail == node) tail = null
-        val result = node.value
+        val element = node.element
         recycleNode(node)
         size--
-        return result
+        return element
     }
 
-    fun pollTail(): T? {
+    fun removeTail(): T? {
         val node = tail ?: return null
         tail = node.prev?.apply { next = null }
         if (head == node) head = null
-        val result = node.value
+        val element = node.element
         recycleNode(node)
         size--
-        return result
+        return element
     }
 
-    fun peekFirst(predicate: (T) -> Boolean): T? {
-        var curr = head
-        while (curr != null && !predicate(curr.value)) curr = curr.next
-        return curr?.value
-    }
-
-    fun peekLast(predicate: (T) -> Boolean): T? {
-        var curr = tail
-        while (curr != null && !predicate(curr.value)) curr = curr.prev
-        return curr?.value
-    }
-
-    fun pollFirst(predicate: (T) -> Boolean): T? {
-        var curr = head
-        while (curr != null) {
-            val next = curr.next
-            if (predicate(curr.value)) {
-                curr.prev?.next = curr.next
-                curr.next?.prev = curr.prev
-                if (head == curr) head = curr.next
-                if (tail == curr) tail = curr.prev
-                val result = curr.value
-                recycleNode(curr)
+    fun removeFirst(predicate: (T) -> Boolean): T? {
+        var node = head
+        while (node != null) {
+            val next = node.next
+            if (predicate(node.element)) {
+                node.prev?.next = node.next
+                node.next?.prev = node.prev
+                if (head == node) head = node.next
+                if (tail == node) tail = node.prev
+                val element = node.element
+                recycleNode(node)
                 size--
-                return result
+                return element
             }
-            curr = next
+            node = next
         }
         return null
     }
 
-    fun pollLast(predicate: (T) -> Boolean): T? {
-        var curr = tail
-        while (curr != null) {
-            val prev = curr.prev
-            if (predicate(curr.value)) {
-                curr.prev?.next = curr.next
-                curr.next?.prev = curr.prev
-                if (head == curr) head = curr.next
-                if (tail == curr) tail = curr.prev
-                val result = curr.value
-                recycleNode(curr)
+    fun removeLast(predicate: (T) -> Boolean): T? {
+        var node = tail
+        while (node != null) {
+            val prev = node.prev
+            if (predicate(node.element)) {
+                node.prev?.next = node.next
+                node.next?.prev = node.prev
+                if (head == node) head = node.next
+                if (tail == node) tail = node.prev
+                val element = node.element
+                recycleNode(node)
                 size--
-                return result
+                return element
             }
-            curr = prev
+            node = prev
         }
         return null
-    }
-
-    fun removeAll(predicate: (T) -> Boolean): List<T> {
-        val list = mutableListOf<T>()
-        var curr = head
-        while (curr != null) {
-            val next = curr.next
-            if (predicate(curr.value)) {
-                curr.prev?.next = curr.next
-                curr.next?.prev = curr.prev
-                if (head == curr) head = curr.next
-                if (tail == curr) tail = curr.prev
-                list += curr.value
-                recycleNode(curr)
-                size--
-            }
-            curr = next
-        }
-        return list
     }
 
     fun removeAt(index: Int): T {
-        if (index < 0 || index >= size) {
-            throw IndexOutOfBoundsException("Index: $index, Size: $size")
-        }
-        var curr = head
-        repeat(index) { curr = curr?.next }
-        val node = curr ?: error("Index: $index, Size: $size")
+        val node = getNodeAt(index)
         node.prev?.next = node.next
         node.next?.prev = node.prev
         if (head == node) head = node.next
         if (tail == node) tail = node.prev
-        val result = node.value
+        val element = node.element
         recycleNode(node)
         size--
-        return result
+        return element
+    }
+
+    fun removeAll(predicate: (T) -> Boolean): List<T> {
+        val list = mutableListOf<T>()
+        var node = head
+        while (node != null) {
+            val next = node.next
+            if (predicate(node.element)) {
+                node.prev?.next = node.next
+                node.next?.prev = node.prev
+                if (head == node) head = node.next
+                if (tail == node) tail = node.prev
+                list += node.element
+                recycleNode(node)
+                size--
+            }
+            node = next
+        }
+        return list
     }
 
     fun clear() {
-        var curr = head
-        while (curr != null) {
-            val next = curr.next
-            recycleNode(curr)
-            curr = next
+        var node = head
+        while (node != null) {
+            val next = node.next
+            recycleNode(node)
+            node = next
         }
         head = null
         tail = null
         size = 0
     }
 
-    operator fun get(index: Int): T {
-        if (index < 0 || index >= size) {
-            throw IndexOutOfBoundsException("Index: $index, Size: $size")
-        }
-        var i = 0
-        for (item in this) if (i++ == index) return item
-        error("Index: $index, Size: $size")
-    }
-
-    operator fun iterator(): Iterator<T> = object : Iterator<T> {
-        private var curr = head
-        override fun hasNext(): Boolean = curr != null
-        override fun next(): T {
-            val value = curr?.value ?: throw NoSuchElementException()
-            curr = curr?.next
-            return value
-        }
-    }
-
-    fun forEach(action: (T) -> Unit) {
-        for (item in this) action(item)
-    }
-
-    fun toList(): List<T> {
-        val list = mutableListOf<T>()
-        forEach(list::add)
-        return list
-    }
-
     fun isEmpty(): Boolean = size == 0
 
     fun isNotEmpty(): Boolean = size != 0
 
-    fun contains(value: T): Boolean {
-        return any { it == value }
-    }
+    // region PriorityDoublyLinkedList 实现了 Iterable，标准库中已经对 Iterable 扩展了如下方法
+    // fun indexOf(element: T): Int {
+    //    var node = head
+    //    var index = 0
+    //    while (node != null) {
+    //        if (node.element == element) return index
+    //        node = node.next
+    //        index++
+    //    }
+    //    return -1
+    // }
+    //
+    // fun contains(element: T): Boolean = any { it == element }
+    //
+    // fun any(predicate: (T) -> Boolean): Boolean {
+    //    for (element in this) if (predicate(element)) return true
+    //    return false
+    // }
+    //
+    // fun all(predicate: (T) -> Boolean): Boolean {
+    //    for (element in this) if (!predicate(element)) return false
+    //    return true
+    // }
+    //
+    // fun forEach(action: (T) -> Unit) {
+    //    for (element in this) action(element)
+    // }
+    //
+    // fun toList(): List<T> {
+    //    val list = mutableListOf<T>()
+    //    forEach(list::add)
+    //    return list
+    // }
+    // endregion
 
-    fun indexOf(value: T): Int {
-        var index = 0
-        for (item in this) {
-            if (item == value) return index
-            index++
+    override operator fun iterator(): Iterator<T> = object : Iterator<T> {
+        private var node = head
+        override fun hasNext(): Boolean = node != null
+        override fun next(): T {
+            val value = node?.element ?: throw NoSuchElementException()
+            node = node?.next
+            return value
         }
-        return -1
     }
 
-    fun any(predicate: (T) -> Boolean): Boolean {
-        for (item in this) if (predicate(item)) return true
-        return false
+    operator fun get(index: Int): T = getNodeAt(index).element
+
+    fun getOrNull(index: Int): T? {
+        if (index < 0 || index >= size) return null
+        var node: Node<T>?
+        if (index < size / 2) {
+            node = head
+            repeat(index) { node = node?.next }
+        } else {
+            node = tail
+            repeat(size - 1 - index) { node = node?.prev }
+        }
+        return node?.element
     }
 
-    fun all(predicate: (T) -> Boolean): Boolean {
-        for (item in this) if (!predicate(item)) return false
-        return true
+    private fun getNodeAt(index: Int): Node<T> {
+        if (index < 0 || index >= size) {
+            throw IndexOutOfBoundsException("Index: $index, Size: $size")
+        }
+        var node: Node<T>?
+        if (index < size / 2) {
+            node = head
+            repeat(index) { node = node?.next }
+        } else {
+            node = tail
+            repeat(size - 1 - index) { node = node?.prev }
+        }
+        return node ?: error("Index: $index, Size: $size")
     }
 
-    private fun obtainNode(value: T): Node<T> {
+    private fun obtainNode(element: T): Node<T> {
         val node = recycled
         return if (node != null) {
             recycled = node.next
             recycledSize--
-            node.value = value
+            node.element = element
             node.next = null
             node.prev = null
             node
         } else {
-            Node(value)
+            Node(element)
         }
     }
 
@@ -273,7 +287,7 @@ class PriorityDoublyLinkedList<T>(
     }
 
     private class Node<T>(
-        var value: T,
+        var element: T,
         var next: Node<T>? = null,
         var prev: Node<T>? = null
     )
