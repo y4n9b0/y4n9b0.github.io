@@ -183,6 +183,8 @@ class PriorityDoublyLinkedList<T>(
         head = null
         tail = null
         size = 0
+        recycled = null
+        recycledSize = 0
     }
 
     fun isEmpty(): Boolean = size == 0
