@@ -228,9 +228,9 @@ class PriorityDoublyLinkedList<T>(
         private var node = head
         override fun hasNext(): Boolean = node != null
         override fun next(): T {
-            val value = node?.element ?: throw NoSuchElementException()
+            val element = node?.element ?: throw NoSuchElementException()
             node = node?.next
-            return value
+            return element
         }
     }
 
