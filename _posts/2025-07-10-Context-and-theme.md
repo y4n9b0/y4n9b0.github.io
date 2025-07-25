@@ -47,6 +47,29 @@ val MyView = MyView(application)
 val MyView = MyView(ContextThemeWrapper(application, R.style.My_App_Theme))
 ```
 
+### Bridge themes
+
+Theme.AppCompat.Light 替换为 Theme.MaterialComponents.Light 之后，又发现某些 Button 的背景显示异常。
+原因是当应用使用 Theme.MaterialComponents.* 时，Button 会在运行时被替换为 com.google.android.material.button.MaterialButton，
+MaterialButton 的 style 包含了默认的 backgroundTint（使用 attr/colorPrimary），导致 Button 设置的背景被 tinted。
+解决方式有三：
+1. 设置 Button `app:backgroundTint="@null"`
+2. 使用 `androidx.appcompat.widget.AppCompatButton` 替换 Button
+3. 使用 `Theme.MaterialComponents.*.Bridge` 替换 `Theme.MaterialComponents.*`，
+   Bridge themes 继承自 AppCompat themes，同时又定义了 Material Components theme attributes，
+   部分 Bridge themes 如下：
+   ```
+   Theme.MaterialComponents.Bridge
+   Theme.MaterialComponents.Light.Bridge
+   Theme.MaterialComponents.NoActionBar.Bridge
+   Theme.MaterialComponents.Light.NoActionBar.Bridge
+   Theme.MaterialComponents.Light.DarkActionBar.Bridge  
+   ```
+   <!-- https://stackoverflow.com/a/63331089 -->
+   <!-- https://stackoverflow.com/a/67466323 -->
+
+通常建议使用方式 3，一方面改动最小，另一方面方式一和二都只是解决了 Button 这一控件的问题，还可能有其他控件存在 theme 属性问题。
+
 ### token
 
 Application 和 Activity 作为 context 的另一个区别就是，Application 不能用于 Dialog，否则会 BadTokenException。
