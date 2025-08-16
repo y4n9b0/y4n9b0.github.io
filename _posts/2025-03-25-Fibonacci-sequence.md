@@ -23,7 +23,7 @@ fun fib(n: Int): Int = if (n < 2) n else fib(n - 1) + fib(n - 2)
 ## 尾递归
 
 ```kotlin
-fun fib(n: Int, a: Int = 0, b: Int = 1): Int = if (n == 0) a else fib(n - 1, b, a + b)
+tailrec fun fib(n: Int, a: Int = 0, b: Int = 1): Int = if (n == 0) a else fib(n - 1, b, a + b)
 ```
 
 尾递归一般比较难想到，主要是平时能见到的应用不多，更多的是为后续转化为循环迭代做准备，比如 kotlin 里使用 tailrec 标记尾递归可以被编译器自动优化成循环。
