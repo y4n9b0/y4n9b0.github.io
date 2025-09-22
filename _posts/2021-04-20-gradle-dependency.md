@@ -41,45 +41,41 @@ project.afterEvaluate {
 }
 
 def predicate(variant) {
-    tasks.create(
-            group: "dependency",
-            name: "flatDeps${variant.name.capitalize()}",
-            description: "flat all dependencies"
-    ) {
-        doLast {
-            def logDir = file("$buildDir${File.separator}outputs${File.separator}logs")
-                    .with(true) {
-                        it.mkdirs()
-                    }
+    def reset = "\033[0m"      // 重置所有样式
+    def bold = "\033[1m"       // 加粗
+    def red = "\033[31m"       // 红色，用于错误
+    def green = "\033[32m"     // 绿色，用于成功
+    def yellow = "\033[33m"    // 黄色，用于告警
 
-            file("${logDir}${File.separator}flatDeps${variant.name.capitalize()}.txt")
-                    .with(true) {
-                        delete(it)
-                    }
-                    .withOutputStream { outputStream ->
-                        Configuration configuration
-                        try {
-                            configuration = project.configurations."${variant.name}CompileClasspath"
-                        } catch (Exception ignored) {
-                            configuration = project.configurations."_${variant.name}Compile"
+    tasks.register("flatDeps${variant.name.capitalize()}", DefaultTask) { task ->
+        task.group = "dependency"
+        task.description = "flat all dependencies"
+        task.doLast {
+            def logDir = file("$buildDir${File.separator}outputs${File.separator}logs")
+            if (!logDir.exists()) logDir.mkdirs()
+
+            def outFile = file("${logDir}${File.separator}flatDeps${variant.name.capitalize()}.txt")
+            if (outFile.exists()) outFile.delete()
+
+            outFile.withOutputStream { outputStream ->
+                Configuration configuration = project.configurations.findByName("${variant.name}CompileClasspath")
+                if (configuration == null) {
+                    configuration = project.configurations.findByName("${variant.name}Compile")
+                }
+                if (configuration == null) {
+                    throw new GradleException("${red}No configuration found for $bold:${project.name}:${variant.name}$reset")
+                }
+                configuration.resolvedConfiguration.lenientConfiguration.allModuleDependencies
+                        .sort { l, r ->
+                            l.module.id.group <=> r.module.id.group ?:
+                                    l.module.id.name <=> r.module.id.name ?:
+                                            l.module.id.version <=> r.module.id.version
                         }
-                        configuration.resolvedConfiguration.lenientConfiguration.allModuleDependencies
-                                .sort(true, new Comparator<ResolvedDependency>() {
-                                    @Override
-                                    int compare(ResolvedDependency l, ResolvedDependency r) {
-                                        def idL = l.module.id
-                                        def idR = r.module.id
-                                        def groupResult = idL.group <=> idR.group
-                                        def artifactResult = idL.name <=> idR.name
-                                        def versionResult = idL.version <=> idR.version
-                                        return groupResult != 0 ? groupResult : (artifactResult != 0 ? artifactResult : versionResult)
-                                    }
-                                })
-                                .each {
-                                    def identifier = it.module.id
-                                    outputStream.write("${identifier.group}:${identifier.name}:${identifier.version}\n".getBytes())
-                                }
-                    }
+                        .each {
+                            def mid = it.module.id
+                            outputStream.write("${mid.group}:${mid.name}:${mid.version}\n".getBytes())
+                        }
+            }
         }
     }
 }
