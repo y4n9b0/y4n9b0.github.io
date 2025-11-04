@@ -173,12 +173,17 @@ class PriorityDoublyLinkedList<T>(
         return list
     }
 
-    fun clear() {
-        var node = head
-        while (node != null) {
-            val next = node.next
-            recycleNode(node)
-            node = next
+    fun clear(clearRecycled: Boolean = false) {
+        if (clearRecycled) {
+            recycled = null
+            recycledSize = 0
+        } else {
+            var node = head
+            while (node != null) {
+                val next = node.next
+                recycleNode(node)
+                node = next
+            }
         }
         head = null
         tail = null
@@ -249,6 +254,27 @@ class PriorityDoublyLinkedList<T>(
         return node?.element
     }
 
+    fun printStructure() {
+        println("---- PriorityDoublyLinkedList ----")
+        println("Size = $size")
+        var node = head
+        var count = 0
+        while (node != null) {
+            println("    [$count] $node")
+            node = node.next
+            count++
+        }
+        println("Recycled Size = $recycledSize")
+        var recycledNode = recycled
+        count = 0
+        while (recycledNode != null) {
+            println("  ♻️[$count] $recycledNode")
+            recycledNode = recycledNode.next
+            count++
+        }
+        println("----------------------------------")
+    }
+
     private fun getNodeAt(index: Int): Node<T> {
         if (index < 0 || index >= size) {
             throw IndexOutOfBoundsException("Index: $index, Size: $size")
@@ -274,22 +300,33 @@ class PriorityDoublyLinkedList<T>(
             node.prev = null
             node
         } else {
-            Node(element)
+            Node(_element = element)
         }
     }
 
     private fun recycleNode(node: Node<T>) {
         if (recycledSize > capacity) return
+        node._element = null
         node.next = recycled
         node.prev = null
         recycled = node
         recycledSize++
     }
 
-    private class Node<T>(
-        var element: T,
-        var next: Node<T>? = null,
+    @Suppress("PropertyName")
+    private data class Node<T>(var _element: T?) {
         var prev: Node<T>? = null
-    )
+        var next: Node<T>? = null
+
+        var element: T
+            get() = _element ?: error("Element is null or has been recycled!")
+            set(value) {
+                _element = value
+            }
+
+        override fun toString(): String {
+            return "Node@${System.identityHashCode(this).toString(16)}(element=${_element})"
+        }
+    }
 }
 ```
