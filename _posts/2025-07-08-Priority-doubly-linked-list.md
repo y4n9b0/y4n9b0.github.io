@@ -14,16 +14,16 @@ published: true
 /**
  * fixed capacity & stable sorting & thread unsafe
  */
-class PriorityDoublyLinkedList<T>(
+class PriorityDoublyLinkedList<E>(
     private val capacity: Int = 9527,
-    private val comparator: Comparator<T>
-) : Iterable<T> {
+    private val comparator: Comparator<E>
+) : Iterable<E> {
 
-    private var head: Node<T>? = null
-    private var tail: Node<T>? = null
+    private var head: Node<E>? = null
+    private var tail: Node<E>? = null
 
     // object pool: a stack-based recycled Node chain
-    private var recycled: Node<T>? = null
+    private var recycled: Node<E>? = null
 
     // max recycled size: capacity + 1
     private var recycledSize = 0
@@ -31,7 +31,7 @@ class PriorityDoublyLinkedList<T>(
     var size: Int = 0
         private set
 
-    fun add(element: T) {
+    fun add(element: E) {
         val insert = obtainNode(element)
         var node = head
         while (node != null && comparator.compare(node.element, insert.element) <= 0) {
@@ -62,29 +62,29 @@ class PriorityDoublyLinkedList<T>(
         if (size > capacity) removeTail()
     }
 
-    fun addAll(elements: Collection<T>) = elements.forEach(::add)
+    fun addAll(elements: Collection<E>) = elements.forEach(::add)
 
-    operator fun plusAssign(element: T) = add(element)
+    operator fun plusAssign(element: E) = add(element)
 
-    operator fun plusAssign(elements: Collection<T>) = addAll(elements)
+    operator fun plusAssign(elements: Collection<E>) = addAll(elements)
 
-    fun headOrNull(): T? = head?.element
+    fun headOrNull(): E? = head?.element
 
-    fun tailOrNull(): T? = tail?.element
+    fun tailOrNull(): E? = tail?.element
 
-    fun firstOrNull(predicate: (T) -> Boolean): T? {
+    fun firstOrNull(predicate: (E) -> Boolean): E? {
         var node = head
         while (node != null && !predicate(node.element)) node = node.next
         return node?.element
     }
 
-    fun lastOrNull(predicate: (T) -> Boolean): T? {
+    fun lastOrNull(predicate: (E) -> Boolean): E? {
         var node = tail
         while (node != null && !predicate(node.element)) node = node.prev
         return node?.element
     }
 
-    fun removeHead(): T? {
+    fun removeHead(): E? {
         val node = head ?: return null
         head = node.next?.apply { prev = null }
         if (tail == node) tail = null
@@ -94,7 +94,7 @@ class PriorityDoublyLinkedList<T>(
         return element
     }
 
-    fun removeTail(): T? {
+    fun removeTail(): E? {
         val node = tail ?: return null
         tail = node.prev?.apply { next = null }
         if (head == node) head = null
@@ -104,7 +104,7 @@ class PriorityDoublyLinkedList<T>(
         return element
     }
 
-    fun removeFirst(predicate: (T) -> Boolean): T? {
+    fun removeFirst(predicate: (E) -> Boolean): E? {
         var node = head
         while (node != null) {
             val next = node.next
@@ -123,7 +123,7 @@ class PriorityDoublyLinkedList<T>(
         return null
     }
 
-    fun removeLast(predicate: (T) -> Boolean): T? {
+    fun removeLast(predicate: (E) -> Boolean): E? {
         var node = tail
         while (node != null) {
             val prev = node.prev
@@ -142,7 +142,7 @@ class PriorityDoublyLinkedList<T>(
         return null
     }
 
-    fun removeAt(index: Int): T {
+    fun removeAt(index: Int): E {
         val node = getNodeAt(index)
         node.prev?.next = node.next
         node.next?.prev = node.prev
@@ -154,8 +154,8 @@ class PriorityDoublyLinkedList<T>(
         return element
     }
 
-    fun removeAll(predicate: (T) -> Boolean): List<T> {
-        val list = mutableListOf<T>()
+    fun removeAll(predicate: (E) -> Boolean): List<E> {
+        val list = mutableListOf<E>()
         var node = head
         while (node != null) {
             val next = node.next
@@ -195,7 +195,7 @@ class PriorityDoublyLinkedList<T>(
     fun isNotEmpty(): Boolean = size != 0
 
     // region PriorityDoublyLinkedList 实现了 Iterable，标准库中已经对 Iterable 扩展了如下方法
-    // fun indexOf(element: T): Int {
+    // fun indexOf(element: E): Int {
     //    var node = head
     //    var index = 0
     //    while (node != null) {
@@ -206,44 +206,44 @@ class PriorityDoublyLinkedList<T>(
     //    return -1
     // }
     //
-    // fun contains(element: T): Boolean = any { it == element }
+    // fun contains(element: E): Boolean = any { it == element }
     //
-    // fun any(predicate: (T) -> Boolean): Boolean {
+    // fun any(predicate: (E) -> Boolean): Boolean {
     //    for (element in this) if (predicate(element)) return true
     //    return false
     // }
     //
-    // fun all(predicate: (T) -> Boolean): Boolean {
+    // fun all(predicate: (E) -> Boolean): Boolean {
     //    for (element in this) if (!predicate(element)) return false
     //    return true
     // }
     //
-    // fun forEach(action: (T) -> Unit) {
+    // fun forEach(action: (E) -> Unit) {
     //    for (element in this) action(element)
     // }
     //
-    // fun toList(): List<T> {
-    //    val list = mutableListOf<T>()
+    // fun toList(): List<E> {
+    //    val list = mutableListOf<E>()
     //    forEach(list::add)
     //    return list
     // }
     // endregion
 
-    override operator fun iterator(): Iterator<T> = object : Iterator<T> {
+    override operator fun iterator(): Iterator<E> = object : Iterator<E> {
         private var node = head
         override fun hasNext(): Boolean = node != null
-        override fun next(): T {
+        override fun next(): E {
             val element = node?.element ?: throw NoSuchElementException()
             node = node?.next
             return element
         }
     }
 
-    operator fun get(index: Int): T = getNodeAt(index).element
+    operator fun get(index: Int): E = getNodeAt(index).element
 
-    fun getOrNull(index: Int): T? {
+    fun getOrNull(index: Int): E? {
         if (index < 0 || index >= size) return null
-        var node: Node<T>?
+        var node: Node<E>?
         if (index < size / 2) {
             node = head
             repeat(index) { node = node?.next }
@@ -275,11 +275,11 @@ class PriorityDoublyLinkedList<T>(
         println("----------------------------------")
     }
 
-    private fun getNodeAt(index: Int): Node<T> {
+    private fun getNodeAt(index: Int): Node<E> {
         if (index < 0 || index >= size) {
             throw IndexOutOfBoundsException("Index: $index, Size: $size")
         }
-        var node: Node<T>?
+        var node: Node<E>?
         if (index < size / 2) {
             node = head
             repeat(index) { node = node?.next }
@@ -290,7 +290,7 @@ class PriorityDoublyLinkedList<T>(
         return node ?: error("Index: $index, Size: $size")
     }
 
-    private fun obtainNode(element: T): Node<T> {
+    private fun obtainNode(element: E): Node<E> {
         val node = recycled
         return if (node != null) {
             recycled = node.next
@@ -304,7 +304,7 @@ class PriorityDoublyLinkedList<T>(
         }
     }
 
-    private fun recycleNode(node: Node<T>) {
+    private fun recycleNode(node: Node<E>) {
         if (recycledSize > capacity) return
         node._element = null
         node.next = recycled
@@ -314,11 +314,11 @@ class PriorityDoublyLinkedList<T>(
     }
 
     @Suppress("PropertyName")
-    private data class Node<T>(var _element: T?) {
-        var prev: Node<T>? = null
-        var next: Node<T>? = null
+    private data class Node<E>(var _element: E?) {
+        var prev: Node<E>? = null
+        var next: Node<E>? = null
 
-        var element: T
+        var element: E
             get() = _element ?: error("Element is null or has been recycled!")
             set(value) {
                 _element = value

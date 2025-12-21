@@ -66,13 +66,13 @@ myCircularQueue.Rear();     // return 4
 /**
  * fixed capacity & thread unsafe
  */
-open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
+open class CircularQueue<E>(private val capacity: Int = 9527) : Iterable<E> {
 
-    private var head: Node<T>? = null
-    private var tail: Node<T>? = null
+    private var head: Node<E>? = null
+    private var tail: Node<E>? = null
 
     // object pool: a stack-based recycled Node chain
-    private var recycled: Node<T>? = null
+    private var recycled: Node<E>? = null
 
     // max recycled size: capacity + 1
     private var recycledSize = 0
@@ -80,7 +80,7 @@ open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
     var size: Int = 0
         private set
 
-    fun enqueue(element: T): Boolean {
+    fun enqueue(element: E): Boolean {
         if (size == capacity) return false
         val node = obtainNode(element)
         if (head == null) {
@@ -99,7 +99,7 @@ open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
         return true
     }
 
-    fun dequeue(): T? {
+    fun dequeue(): E? {
         val node = head ?: return null
         val element = node.element
         if (size == 1) {
@@ -115,9 +115,9 @@ open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
         return element
     }
 
-    fun head(): T? = head?.element
+    fun head(): E? = head?.element
 
-    fun tail(): T? = tail?.element
+    fun tail(): E? = tail?.element
 
     fun isEmpty(): Boolean = size == 0
 
@@ -135,11 +135,11 @@ open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
         size = 0
     }
 
-    override operator fun iterator(): Iterator<T> = object : Iterator<T> {
+    override operator fun iterator(): Iterator<E> = object : Iterator<E> {
         private var node = head
         private var count = 0
         override fun hasNext(): Boolean = count < size
-        override fun next(): T {
+        override fun next(): E {
             val element = node?.element ?: throw NoSuchElementException()
             node = node?.next
             count++
@@ -147,7 +147,7 @@ open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
         }
     }
 
-    private fun obtainNode(element: T): Node<T> {
+    private fun obtainNode(element: E): Node<E> {
         val node = recycled
         return if (node != null) {
             recycled = node.next
@@ -161,7 +161,7 @@ open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
         }
     }
 
-    private fun recycleNode(node: Node<T>) {
+    private fun recycleNode(node: Node<E>) {
         if (recycledSize > capacity) return
         node.next = recycled
         node.prev = null
@@ -169,10 +169,10 @@ open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
         recycledSize++
     }
 
-    private class Node<T>(
-        var element: T,
-        var next: Node<T>? = null,
-        var prev: Node<T>? = null
+    private class Node<E>(
+        var element: E,
+        var next: Node<E>? = null,
+        var prev: Node<E>? = null
     )
 }
 
@@ -190,10 +190,10 @@ class MyCircularQueue(k: Int) : CircularQueue<Int>(capacity = k) {
 /**
  * fixed capacity & thread unsafe
  */
-open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
+open class CircularQueue<E>(private val capacity: Int = 9527) : Iterable<E> {
 
     @Suppress("UNCHECKED_CAST")
-    private val array = arrayOfNulls<Any?>(capacity) as Array<T?>
+    private val array = arrayOfNulls<Any?>(capacity) as Array<E?>
 
     private var head: Int = 0
     private var tail: Int = -1
@@ -201,7 +201,7 @@ open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
     var size: Int = 0
         private set
 
-    fun enqueue(element: T): Boolean {
+    fun enqueue(element: E): Boolean {
         if (size == capacity) return false
         tail = (tail + 1) % capacity
         array[tail] = element
@@ -209,7 +209,7 @@ open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
         return true
     }
 
-    fun dequeue(): T? {
+    fun dequeue(): E? {
         if (size == 0) return null
         val element = array[head]
         array[head] = null
@@ -218,9 +218,9 @@ open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
         return element
     }
 
-    fun head(): T? = if (size == 0) null else array[head]
+    fun head(): E? = if (size == 0) null else array[head]
 
-    fun tail(): T? = if (size == 0) null else array[tail]
+    fun tail(): E? = if (size == 0) null else array[tail]
 
     fun isEmpty(): Boolean = size == 0
 
@@ -233,11 +233,11 @@ open class CircularQueue<T>(private val capacity: Int = 9527) : Iterable<T> {
         size = 0
     }
 
-    override operator fun iterator(): Iterator<T> = object : Iterator<T> {
+    override operator fun iterator(): Iterator<E> = object : Iterator<E> {
         private var index = head
         private var count = 0
         override fun hasNext(): Boolean = count < size
-        override fun next(): T {
+        override fun next(): E {
             val element = array[index] ?: throw NoSuchElementException()
             index = (index + 1) % capacity
             count++
