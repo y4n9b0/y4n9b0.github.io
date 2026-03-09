@@ -164,9 +164,9 @@ org.gradle.configuration-cache=true
 ```
 
 需要注意的是，启用 Configuration Cache 有风险：
-    * 旧插件 / 自定义 task 非常容易不兼容
-	* Project、Task 在配置阶段做 IO / 读环境变量 / 单例状态，都会直接报错
-	* Android 项目中，AGP + 第三方插件是最大雷区
+* 旧插件 / 自定义 task 非常容易不兼容
+* Project、Task 在配置阶段做 IO / 读环境变量 / 单例状态，都会直接报错
+* Android 项目中，AGP + 第三方插件是最大雷区
 
 不要在未通过 --configuration-cache 校验前默认开启到全员环境，建议先在个人机器用 --configuration-cache 跑，逐个修复不兼容问题，通过后再考虑配置在 gradle.properties 全员开启。
 
