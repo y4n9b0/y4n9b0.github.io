@@ -95,7 +95,7 @@ fun lcm(m: Long, n: Long): Long {
     return m.div(gcd(m, n)).times(n)
 }
 
-fun gcd(m: Long, n: Long): Long {
+tailrec fun gcd(m: Long, n: Long): Long {
     return if (n == 0L) m else gcd(n, m.mod(n))
 }
 ```

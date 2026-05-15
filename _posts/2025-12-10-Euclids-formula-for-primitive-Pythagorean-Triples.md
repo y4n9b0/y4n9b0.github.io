@@ -73,7 +73,7 @@ class Solution {
         return cnt
     }
 
-    private fun gcd(x: Int, y: Int): Int = if (y == 0) x else gcd(y, x % y)
+    private tailrec fun gcd(x: Int, y: Int): Int = if (y == 0) x else gcd(y, x % y)
 }
 ```
 
@@ -161,6 +161,6 @@ class Solution {
         return cnt
     }
 
-    private fun gcd(x: Int, y: Int): Int = if (y == 0) x else gcd(y, x % y)
+    private tailrec fun gcd(x: Int, y: Int): Int = if (y == 0) x else gcd(y, x % y)
 }
 ```
